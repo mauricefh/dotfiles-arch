@@ -1,0 +1,116 @@
+require-module x11
+set global windowing_modules x11
+
+colorscheme black-on-white
+
+# Don't show startup changelog
+set-option global startup_info_version 99999999999
+
+# Wrap at 80
+add-highlighter global/ column 81 PrimarySelection
+add-highlighter global/ wrap -word -indent -width 80
+
+# Show mathing brackets
+add-highlighter global/ show-matching
+
+# Line numbers
+add-highlighter global/ number-lines -hlcursor -min-digits 4 -separator ' '
+
+# Setup ide variables to open new clients for commands
+def ide %{
+  rename-client main
+  set global jumpclient main
+
+  new rename-client tools
+  set global toolsclient tools
+}
+
+# unselect on <esc>
+map global normal <esc> ";,"
+
+# comment lines
+map global normal <c-v> ":comment-line<ret>"
+
+# Make opening new terminals easy
+set global termcmd 'kitty -e sh -c'
+map global normal <c-t> ': terminal /bin/bash<ret>'
+
+# Make opening new buffers easy
+map global normal <c-n> ':new<ret>'
+
+# Easier buffer management
+map global normal <c-b> ': b '
+
+def git-link-yank %{
+  nop %sh{
+    url="$(git remote get-url origin | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git//')/blob"
+    branch="/$(git status -b --porcelain=v2 | grep branch.oid | cut -d ' ' -f 3)"
+    top=$(git rev-parse --show-toplevel | sed 's/\//\\\//g')
+    path=$(echo -n "$kak_buffile" | sed "s/$top//")
+    line1="#L$(echo $kak_selection_desc | sed 's/\..*$//')"
+    line2="-L$(echo $kak_selection_desc | cut -d ',' -f 2 | sed 's/\..*$//')"
+    printf "%s%s%s%s" "$url" "$branch" "$path" "$line1" "$line2" | xsel -b
+  }
+}
+map global normal <c-y> ': git-link-yank<ret>'
+
+# Add any new selection to the system clipboard
+map global normal y '\<a-|>xsel -b<ret>y'
+
+# Use ctrl-a to search
+set global grepcmd 'git grep -Hn'
+map global normal <c-a> ':grep '
+
+# Use git ls-files for quick jump to files
+declare-option str findcmd 'git ls-files'
+define-command find -menu -params 1 -shell-script-candidates %opt{findcmd} %{ edit %arg{1} }
+map global normal <c-f> ':find '
+
+
+# Indentation - always 2 spaces
+hook global InsertChar \t %{ exec -draft -itersel h@ }
+set global tabstop 2
+set global indentwidth 2
+
+# Delete word in insert mode
+map global insert <c-w> <esc>bdi
+
+# Less keystrokes to use make, and navigate errors
+declare-user-mode error-mode
+
+# map global normal <c-e> ":enter-user-mode error-mode<ret>"
+# map -docstring "make" global error-mode m ":make<ret>"
+# map -docstring "next error" global error-mode n ":make-next-error<ret>"
+# map -docstring "previous error" global error-mode p ":make-previous-error<ret>"
+
+# Run emmet cli to insert html into any file with ease
+map global normal <c-e> "| emmet ''<left>"
+
+# Format the document using prettier
+# BROKEN NEED BUG FIX
+# map global normal <a-s-i> ":write | %sh{prettier . --write} <ret>"
+
+# Stop scratch buffer from having anything in it
+hook global WinCreate \*scratch\* %{
+  execute-keys xjd
+}
+
+# Autocomplet with tab
+hook global InsertCompletionShow .* %{
+    map window insert <tab> <c-n>
+    map window insert <s-tab> <c-p>
+}
+
+hook global InsertCompletionHide .* %{
+    unmap window insert <tab> <c-n>
+    unmap window insert <s-tab> <c-p>
+}
+
+# Exit insert mode with 'jk'
+hook global InsertChar k %{ try %{
+  exec -draft hH <a-k>jk<ret> d
+  exec <esc>
+}}
+
+# Prevent any more highlighters from being added.
+define-command -override -params .. add-highlighter ""
