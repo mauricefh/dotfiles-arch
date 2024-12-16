@@ -1,0 +1,1 @@
+/home/curseedz/.local/share/mybash/.bashrc

@@ -1,7 +1,7 @@
 require-module x11
 set global windowing_modules x11
 
-colorscheme black-on-white
+colorscheme kakoune-plain
 
 # Don't show startup changelog
 set-option global startup_info_version 99999999999
@@ -40,6 +40,9 @@ map global normal <c-n> ':new<ret>'
 
 # Easier buffer management
 map global normal <c-b> ': b '
+
+# Close current buffer
+map global normal <c-x> ': db<ret>'
 
 def git-link-yank %{
   nop %sh{
@@ -86,13 +89,9 @@ declare-user-mode error-mode
 # Run emmet cli to insert html into any file with ease
 map global normal <c-e> "| emmet ''<left>"
 
-# Format the document using prettier
-# BROKEN NEED BUG FIX
-# map global normal <a-s-i> ":write | %sh{prettier . --write} <ret>"
-
 # Stop scratch buffer from having anything in it
 hook global WinCreate \*scratch\* %{
-  execute-keys xjd
+  execute-keys <s-%>d
 }
 
 # Autocomplet with tab
@@ -112,5 +111,37 @@ hook global InsertChar k %{ try %{
   exec <esc>
 }}
 
-# Prevent any more highlighters from being added.
-define-command -override -params .. add-highlighter ""
+# Map global keybind
+map global normal <a-s-f> ': format<ret>' -docstring 'prettier'
+
+# User keybind with <space>
+map global user a ': git add .<ret>' -docstring 'git add'
+map global user c ": git commit<ret>" -docstring 'git commit'
+map global user p ': git pull<ret>' -docstring 'git pull'
+map global user P ': git pull<ret>' -docstring 'git push'
+map global user l ': git log<ret>' -docstring 'git log'
+map global user s ': git status<ret>' -docstring 'git status'
+map global user d ': git diff<ret>' -docstring 'git diff'
+map global user b ': git blame<ret>' -docstring 'git blame'
+
+# Formatter and linter by file type
+
+# JavaScript, TypeScript
+hook global WinSetOption filetype=(javascript|typescript|css|scss|json|markdown|yaml|html) %{
+  set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
+}
+
+# LSP Setting
+eval %sh{kak-lsp}
+lsp-enable
+map global normal <c-l> ':enter-user-mode lsp<ret>' -docstring 'LSP mode'
+
+map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+
+map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object f '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
+map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
+map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
+map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
+
