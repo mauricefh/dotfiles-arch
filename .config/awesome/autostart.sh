@@ -1,19 +1,23 @@
 #!/bin/bash
-nm-applet &
-volumeicon &
-blueman-applet &
-cbatticon &
-batsignal &
-picom &
-keepassxc &
-# teams-for-linux &
-killall polybar
-polybar -r example &
-flameshot &
-# fdm &
-discord &
-xdman-beta &
-udiskie &
+
+# Function to kill existing instances
+run_once() {
+    local program="$1"
+    pkill -f "$program" 2>/dev/null
+    "$program" &
+}
+
+run_once nm-applet
+run_once volumeicon
+run_once blueman-applet
+run_once cbatticon
+run_once batsignal
+run_once picom
+run_once keepassxc
+run_once flameshot
+run_once discord
+run_once xdman-beta
+run_once udiskie
 
 # Disable sleep and screen saver
 xset s off

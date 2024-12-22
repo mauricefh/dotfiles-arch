@@ -12,37 +12,8 @@ ruled.client.connect_signal("request::rules", function()
             placement = awful.placement.no_overlap + awful.placement.no_offscreen,
         },
     }
-    -- Browser
-    ruled.client.append_rule {
-        rule = { instance = "chromium" },
-        properties = { tag = "Browser" }
-    }
-    -- Chat/Email
-    ruled.client.append_rule {
-        rule = { instance = "discord" },
-        properties = { tag = "Chat/Email" }
-    }
-    ruled.client.append_rule {
-        rule = { instance = "teams-for-linux" },
-        properties = { tag = "Chat/Email" }
-    }
-    ruled.client.append_rule {
-        rule = { instance = "org.gnome.Evolution" },
-        properties = { tag = "Chat/Email" }
-    }
-    -- Files
-    ruled.client.append_rule {
-        rule = { instance = "thunar" },
-        properties = { tag = "Files" }
-    }
-    -- 5
-    -- 6
-    -- 7 
-    -- Media
-    ruled.client.append_rule {
-        rule = { instance = "spotify" },
-        properties = { tag = "Media" }
-    }  
-    -- Misc
-
+    -- ruled.client.append_rule {
+        -- rule = { instance = "chromium" },
+        -- properties = { tag = "2" }
+      -- }
 end)
