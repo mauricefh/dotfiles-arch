@@ -65,9 +65,15 @@ set global grepcmd 'git grep -Hn'
 map global normal <c-a> ':grep '
 
 # Use git ls-files for quick jump to files
-declare-option str findcmd 'git ls-files'
+declare-option str findgitcmd 'git ls-files'
+define-command findgit -menu -params 1 -shell-script-candidates %opt{findgitcmd} %{ edit %arg{1} }
+map global normal <c-f> ':findgit '
+
+# Use find for quick jump to files
+# declare-option str findcmd 'find . -type f | grep -vFf .gitignore'
+declare-option str findcmd 'find . -type f'
 define-command find -menu -params 1 -shell-script-candidates %opt{findcmd} %{ edit %arg{1} }
-map global normal <c-f> ':find '
+map global normal <c-F> ':find '
 
 
 # Indentation - always 2 spaces
