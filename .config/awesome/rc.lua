@@ -272,7 +272,7 @@ globalkeys = gears.table.join(
     { description = "restore minimized", group = "client" }),
 
   -- Prompt
-  awful.key({ modkey }, "d", function() awful.spawn("/home/curseedz/.config/rofi/scripts/launcher_t4")  end,
+  awful.key({ modkey }, "d", function() awful.spawn("/home/mauricefh/.config/rofi/scripts/launcher_t4")  end,
     { description = "rofi", group = "launcher" }),
 
   awful.key({ modkey }, "x",
