@@ -287,7 +287,7 @@ globalkeys = gears.table.join(
     { description = "lua execute prompt", group = "awesome" }),
 
   -- Customs
-    awful.key({ modkey, "Shift" }, "b", function() awful.spawn("Zen Browser") end,
+    awful.key({ modkey, "Shift" }, "b", function() awful.spawn("zen-browser") end,
     { description = "open a terminal", group = "launcher" }),
     awful.key({}, "XF86AudioMicMute", function () awful.spawn("amixer set Capture toggle") end,
     { description = "Mute microphone", group = "media" }),
