@@ -32,3 +32,7 @@ eval "$(fnm env --use-on-cd --shell bash)"
 # if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
 #    exec tmux && exit;
 # fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"

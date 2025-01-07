@@ -53,7 +53,7 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "ghostty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -287,7 +287,7 @@ globalkeys = gears.table.join(
     { description = "lua execute prompt", group = "awesome" }),
 
   -- Customs
-    awful.key({ modkey, "Shift" }, "b", function() awful.spawn("zen-browser") end,
+    awful.key({ modkey, "Shift" }, "b", function() awful.spawn("chromium") end,
     { description = "open a terminal", group = "launcher" }),
     awful.key({}, "XF86AudioMicMute", function () awful.spawn("amixer set Capture toggle") end,
     { description = "Mute microphone", group = "media" }),

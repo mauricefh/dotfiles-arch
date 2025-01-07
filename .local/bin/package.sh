@@ -89,6 +89,9 @@ packages=(
     "rofi"
     "ttf-iosevka"
     "thunderbird"
+    "trash-cli"
+    "docker"
+    "docker-compose"
 )
 
 # Install all listed packages
@@ -104,5 +107,8 @@ else
     echo "fnm is already installed."
 fi
 
+npm install -g emmet-cli emmet-ls js-beautify prettier typescript typescript-language-server vscode-langservers-extracted yaml-language-server
+
 echo "All packages checked/installed."
+
 

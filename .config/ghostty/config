@@ -1,0 +1,8 @@
+font-family = IosevkaFixed
+font-size = 14.0
+foreground = #c0b18b
+background = #262626
+background-opacity = 1.0
+selection-foreground = #2f2f2f
+selection-background = #d75f5f
+window-decoration = false
