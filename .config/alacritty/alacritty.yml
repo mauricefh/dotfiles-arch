@@ -1,0 +1,26 @@
+# Alacritty Configuration File
+
+# Font configuration
+font:
+  normal:
+    family: "Iosevka Fixed"
+  size: 14.0
+
+# Colors
+colors:
+  primary:
+    foreground: '#c0b18b'
+    background: '#262626'
+  selection:
+    text: '#2f2f2f'
+    background: '#d75f5f'
+
+# Window configuration
+window:
+  decorations: none
+  opacity: 1.0
+
+# Confirmation dialogs
+ui:
+  confirm_close: false
+
