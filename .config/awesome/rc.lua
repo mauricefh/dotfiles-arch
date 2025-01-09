@@ -16,6 +16,12 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+-- Environement variable
+local home = os.getenv("HOME")
+local user = os.getenv("USER")
+local browser = "chromium"
+local rofi_launcher_path = "/home/" .. user .. "/.config/rofi/scripts/launcher_t4"
+
 -- Enable hotkeys help widget for VIM and other apps
 require("awful.hotkeys_popup.keys")
 
@@ -272,7 +278,7 @@ globalkeys = gears.table.join(
     { description = "restore minimized", group = "client" }),
 
   -- Prompt
-  awful.key({ modkey }, "d", function() awful.spawn("/home/mauricefh/.config/rofi/scripts/launcher_t4")  end,
+  awful.key({ modkey }, "d", function() awful.spawn(rofi_launcher_path )  end,
     { description = "rofi", group = "launcher" }),
 
   awful.key({ modkey }, "x",
@@ -287,7 +293,7 @@ globalkeys = gears.table.join(
     { description = "lua execute prompt", group = "awesome" }),
 
   -- Customs
-    awful.key({ modkey, "Shift" }, "b", function() awful.spawn("chromium") end,
+    awful.key({ modkey, "Shift" }, "b", function() awful.spawn(browser) end,
     { description = "open a terminal", group = "launcher" }),
     awful.key({}, "XF86AudioMicMute", function () awful.spawn("amixer set Capture toggle") end,
     { description = "Mute microphone", group = "media" }),
