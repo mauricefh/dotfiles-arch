@@ -53,3 +53,7 @@ jqf() {
     local filter="${2:-.}"          # Default to '.' if no filter is provided
     jq "$filter" "$file" | sponge "$file"
 }
+
+kak-lsp-restart() {
+  pkill kak-lsp && kak-lsp
+}

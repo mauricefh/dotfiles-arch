@@ -7,13 +7,11 @@ background = "#d75f5f"
 text = "#2f2f2f"
 
 [font]
-size = 14.0
+normal = { family = "Iosevka", style = "Regular" }
+size = 10
 
-[font.normal]
-family = "Iosevka Fixed"
-
-[ui]
-confirm_close = false
+# [ui]
+# confirm_close = false
 
 [window]
 decorations = "none"

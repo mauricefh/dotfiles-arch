@@ -18,6 +18,7 @@ run_once flameshot
 run_once discord
 run_once xdman-beta
 run_once udiskie
+run_once slack
 
 # Disable sleep and screen saver
 xset s off

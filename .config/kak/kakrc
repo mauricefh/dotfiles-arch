@@ -5,11 +5,14 @@ colorscheme kakoune-plain
 
 # Don't show startup changelog
 set-option global startup_info_version 99999999999
+set-option global autoreload true
 
 # Wrap at 80
-add-highlighter global/ column 81 PrimarySelection
-add-highlighter global/ wrap -word -indent -width 80
+# add-highlighter global/ column 81 PrimarySelection
+# add-highlighter global/ wrap -word -indent -width 80
 
+add-highlighter global/ column 121 PrimarySelection
+add-highlighter global/ wrap -word -indent -width 120
 # Show mathing brackets
 add-highlighter global/ show-matching
 
@@ -32,7 +35,7 @@ map global normal <esc> ";,"
 map global normal <c-v> ":comment-line<ret>"
 
 # Make opening new terminals easy
-set global termcmd 'kitty -e sh -c'
+set global termcmd 'alacritty -e sh -c'
 map global normal <c-t> ': terminal /bin/bash<ret>'
 
 # Make opening new buffers easy
@@ -130,24 +133,35 @@ map global user s ': git status<ret>' -docstring 'git status'
 map global user d ': git diff<ret>' -docstring 'git diff'
 map global user b ': git blame<ret>' -docstring 'git blame'
 
-# Formatter and linter by file type
 
-# JavaScript, TypeScript
-hook global WinSetOption filetype=(javascript|typescript|css|scss|json|markdown|yaml|html) %{
-  set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
-}
-
+###########################
 # LSP Setting
+###########################
+
+# Init
 eval %sh{kak-lsp}
 lsp-enable
+
+# Keybind
 map global normal <c-l> ':enter-user-mode lsp<ret>' -docstring 'LSP mode'
-
 map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
-
 map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
 map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
 map global object f '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
 map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
 map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
 map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
+
+# Formater & Linter
+
+# JavaScript, TypeScript
+hook global WinSetOption filetype=(javascript|typescript|css|scss|json|markdown|yaml|html) %{
+  set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
+}
+
+# Python
+# Define a Black formatter command for Kakoune's :format
+hook global WinSetOption filetype=(python) %{
+    set-option buffer formatcmd "black --quiet --fast --line-length 120 %val{buffile}"
+}
 
