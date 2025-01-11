@@ -15,3 +15,8 @@ chmod+x ~/.local/bin/install-default-package.sh && ~/.local/bin/install-default-
 ```bash
 chmod+x ~/.local/bin/install-iosevka-font.sh && ~/.local/bin/install-iosevka-font.sh
 ```
+
+```bash
+chmod+x ~/.local/bin/post-package-install.sh && ~/.local/bin/post-package-install.sh
+```
+
