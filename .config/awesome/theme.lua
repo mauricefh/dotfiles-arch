@@ -2,11 +2,14 @@ local theme_assets = require("beautiful.theme_assets")
 local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
 local beautiful = require("beautiful")
-
 local gfs = require("gears.filesystem")
-local themes_path = gfs.get_themes_dir()
 
-gears.wallpaper.maximized("/home/curseedz/Pictures/wallpaper-1.jpg", s)
+local themes_path = gfs.get_themes_dir()
+local home = os.getenv("HOME")
+local user = os.getenv("USER")
+local wallpaper_path = home .. "/.config/awesome/background.jpg"
+
+gears.wallpaper.maximized(wallpaper_path, s)
 
 local theme = {}
 
