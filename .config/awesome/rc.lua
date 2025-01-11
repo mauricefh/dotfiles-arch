@@ -434,14 +434,21 @@ awful.rules.rules = {
     }
   },
 
+  {
+    rule = { class = "slack" },
+    properties = {
+      focus = false, -- Prevent Slack windows from gaining focus
+      raise = false, -- Prevent Slack windows from being raised
+    }
+  },
+
   -- Floating clients.
   {
     rule_any = {
       instance = {
       },
       class = {
-        "Arandr",
-        "Blueman-manager"
+        "Arandr"
         },
       name = {
         "Event Tester",   -- xev.
@@ -454,21 +461,6 @@ awful.rules.rules = {
     },
     properties = { floating = true }
   },
-
-  -- Add titlebars to floating and dialogs clients
-  {
-    rule_any = { type = { "dialog" }
-    },
-    properties = { titlebars_enabled = true }
-  },
-
-  -- {
-  --   rule_any = {floating = true},
-  --       properties = {
-  --           placement = awful.placement.centered,
-  --           titlebars_enabled = true
-  --         }
-  -- },
 
   -- Set Firefox to always map on the tag named "2" on screen 1.
   -- { rule = { class = "Firefox" },
@@ -522,51 +514,6 @@ client.connect_signal("request::titlebars", function(c)
     layout = wibox.layout.align.horizontal
   }
 end)
-
--- Hook to enable titlebars for dynamically floated windows
--- client.connect_signal("property::floating", function(c)
---     if c.floating then
---         -- Create the titlebar only once for each window
---         if not c.titlebar then
---             awful.titlebar(c):setup {
---                 -- Left-aligned buttons, e.g., close, minimize
---                 { 
---                     awful.titlebar.widget.iconwidget(c),
---                     layout = wibox.layout.fixed.horizontal
---                 },
---                 -- Middle part (title text)
---                 {
---                     align = "center",
---                     widget = awful.titlebar.widget.titlewidget(c),
---                 },
---                 -- Right-aligned buttons (e.g., maximize, etc.)
---                 {
---                     awful.titlebar.widget.closebutton(c),
---                     layout = wibox.layout.fixed.horizontal
---                 },
---                 layout = wibox.layout.align.horizontal
---             }
-
-        --     -- Enable moving and resizing when interacting with the titlebar
-        --     c:connect_signal("button::press", function(c, _, _, button)
-        --         if button == 1 then  -- Left mouse button
-        --             -- Move the window when clicking on the titlebar
-        --             awful.mouse.client.move(c)
-        --         elseif button == 3 then  -- Right mouse button
-        --             -- Resize the window when right-clicking on the titlebar
-        --             awful.mouse.client.resize(c)
-        --         end
-        --     end)
-        -- end
-
-        -- Ensure that the window can be resized and moved
---         c.moveable = true
---         c.resizable = true
-
---         -- Place the window in the center of the screen
---         awful.placement.centered(c)
---     end
--- end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)

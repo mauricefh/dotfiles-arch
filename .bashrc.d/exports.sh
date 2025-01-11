@@ -54,7 +54,8 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | 
 # fzf preview for tmux
 export FZF_TMUX_OPTS=" -p90%,70% "
 
-export PYTHONPATH="./src/layers/common:./src/functions/api:./src/functions/sqs:$PYTHONPATH"
+TREVI_CONNECTOR_PATH="/home/mauricefh/Work/trevi-connector"
+export PYTHONPATH="$TREVI_CONNECTOR_PATH/src/layers/common:$TREVI_CONNECTOR_PATH/src/functions/api:$TREVI_CONNECTOR_PATH/src/functions/sqs:$PYTHONPATH"
 
 # Update PATH
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$PATH"
