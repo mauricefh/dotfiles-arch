@@ -1,0 +1,5 @@
+Zutty.font:                    IosevkaFixed
+Zutty.fontsize:                18
+Zutty.bg:                      #262626
+Zutty.fg:                      #c0b18b
+Zutty.fontpath:                /usr/share/fonts:/usr/local/share/fonts
