@@ -36,4 +36,7 @@ eval "$(fnm env --use-on-cd --shell bash)"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
-source '/home/mauricefh/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/@hyperupcall/autoenv/activate.sh'
+
+source "$HOME/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/@hyperupcall/autoenv/activate.sh"
+
+# Direction for new install

@@ -35,7 +35,7 @@ map global normal <esc> ";,"
 map global normal <c-v> ":comment-line<ret>"
 
 # Make opening new terminals easy
-set global termcmd 'alacritty -e sh -c'
+set global termcmd 'zutty -e sh -c'
 map global normal <c-t> ': terminal /bin/bash<ret>'
 
 # Make opening new buffers easy

@@ -19,6 +19,9 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Environement variable
 local home = os.getenv("HOME")
 local user = os.getenv("USER")
+local terminal = "zutty"
+local editor = os.getenv("EDITOR") or "nano"
+local editor_cmd = terminal .. " -e " .. editor
 local browser = "chromium"
 local rofi_launcher_path = "/home/" .. user .. "/.config/rofi/scripts/launcher_t4"
 
@@ -58,10 +61,6 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
--- This is used later as the default terminal and editor to run.
-terminal = "ghostty"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
