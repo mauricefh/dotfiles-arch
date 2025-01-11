@@ -37,7 +37,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
 
-source "$HOME/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/@hyperupcall/autoenv/activate.sh"
+# FNV_VERSION=echo $("fnm version")
+# source "$HOME/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/@hyperupcall/autoenv/activate.sh"
 
 # Direction for new install
 # if [ ! -d "$HOME/.dotfiles" ]; then
