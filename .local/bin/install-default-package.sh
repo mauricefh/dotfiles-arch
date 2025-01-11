@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to check if a package is installed
+# Function to check if a package is installed using pacman
 is_installed() {
     pacman -Qs "$1" > /dev/null
 }
@@ -15,17 +15,31 @@ install_paru() {
     paru -S --noconfirm "$1"
 }
 
-# Install git if not installed
-if ! is_installed "git"; then
+# Function to install a package via cargo (Rust package manager)
+install_cargo_package() {
+    cargo install "$1"
+}
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check for git and install if not present
+if ! command_exists "git"; then
     echo "git is not installed. Installing..."
     install_pacman "git"
 else
     echo "git is already installed."
 fi
 
-# Install rustup if not installed
-if ! is_installed "rustup"; then
+# Check for curl and install rustup if not installed
+if ! command_exists "rustup"; then
     echo "rustup is not installed. Installing..."
+    if ! command_exists "curl"; then
+        echo "curl is not installed. Installing curl..."
+        install_pacman "curl"
+    fi
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     source $HOME/.cargo/env
     rustup install stable
@@ -33,8 +47,8 @@ else
     echo "rustup is already installed."
 fi
 
-# Install paru if not installed
-if ! is_installed "paru"; then
+# Check for paru and install it if not installed
+if ! command_exists "paru"; then
     echo "paru is not installed. Installing..."
     git clone https://aur.archlinux.org/cgit/aur.git/git/paru.git
     cd paru
@@ -44,8 +58,7 @@ else
     echo "paru is already installed."
 fi
 
-
-# Function to install packages
+# Install packages based on availability
 install_package() {
     package="$1"
     if is_installed "$package"; then
@@ -56,7 +69,7 @@ install_package() {
             # Available in pacman official repo
             install_pacman "$package"
         else
-            # Not available in pacman, try AUR
+            # Not available in pacman, try AUR via paru
             install_paru "$package"
         fi
     fi
@@ -99,6 +112,10 @@ packages=(
     "vit"
     "aws-cli"
     "aws-sam-cli"
+    "noto-fonts"
+    "noto-fonts-cjk"
+    "noto-fonts-emoji"
+    "noto-fonts-extra"
 )
 
 npm_packages=(
@@ -118,20 +135,18 @@ for package in "${packages[@]}"; do
     install_package "$package"
 done
 
-
 # Install fnm (via cargo, since it's not in official repo or AUR)
-if ! is_installed "fnm"; then
+if ! command_exists "fnm"; then
     echo "fnm is not installed. Installing via cargo..."
-    cargo install fnm
+    install_cargo_package "fnm"
 else
     echo "fnm is already installed."
 fi
 
-  # Loop through the npm packages and install them
+# Loop through the npm packages and install them
 for package in "${npm_packages[@]}"; do
-  npm install -g "$package"
+    npm install -g "$package"
 done
 
 echo "All packages checked/installed."
-
 
