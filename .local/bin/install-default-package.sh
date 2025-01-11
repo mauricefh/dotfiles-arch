@@ -64,6 +64,7 @@ install_package() {
 
 # List of packages to install
 packages=(
+    "base-devel"
     "network-manager-applet"
     "cbatticon"
     "volumeicon"
@@ -73,7 +74,7 @@ packages=(
     "batsignal"
     "udiskie"
     "gh-cli"
-    "zen-browser-bin"
+    "chromium"
     "kakoune"
     "kakoune-lsp"
     "zoxide"
@@ -92,12 +93,31 @@ packages=(
     "trash-cli"
     "docker"
     "docker-compose"
+    "zutty-git"
+    "simplescreenrecorder"
+    "task"
+    "vit"
+    "aws-cli"
+    "aws-sam-cli"
+)
+
+npm_packages=(
+    "emmet-cli"
+    "emmet-ls"
+    "js-beautify"
+    "prettier"
+    "typescript"
+    "typescript-language-server"
+    "vscode-langservers-extracted"
+    "yaml-language-server"
+    "@hyperupcall/autoenv"
 )
 
 # Install all listed packages
 for package in "${packages[@]}"; do
     install_package "$package"
 done
+
 
 # Install fnm (via cargo, since it's not in official repo or AUR)
 if ! is_installed "fnm"; then
@@ -107,7 +127,10 @@ else
     echo "fnm is already installed."
 fi
 
-npm install -g emmet-cli emmet-ls js-beautify prettier typescript typescript-language-server vscode-langservers-extracted yaml-language-server
+  # Loop through the npm packages and install them
+for package in "${npm_packages[@]}"; do
+  npm install -g "$package"
+done
 
 echo "All packages checked/installed."
 
