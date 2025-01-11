@@ -1,6 +1,10 @@
 If you are a new user, run the following script:
 
 ```bash
+https://github.com/mauricefh/dotfiles-arch.git
+```
+
+```bash
 chmod+x ~/.local/bin/git-bare-repo-init.sh && ~/.local/bin/git-bare-repo-init.sh
 ```
 
