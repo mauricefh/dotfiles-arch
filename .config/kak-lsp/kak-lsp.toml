@@ -4,3 +4,9 @@ roots = [".git", "setup.py"]
 command = "pyright-langserver"
 args = ["--stdio"]
 
+[language.markdown]
+filetypes = ["markdown"]
+roots = [".md"]
+command = "/home/curseedz/.cargo/bin/mdpls"
+settings = { markdown = { preview = { auto = true }}}
+
