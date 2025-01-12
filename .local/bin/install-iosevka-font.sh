@@ -2,8 +2,10 @@
 
 # Define directory and font URL
 DIR="/usr/local/share/fonts"
-FONT_URL="https://github.com/be5invis/Iosevka/releases/download/v32.3.1/PkgTTC-SGr-IosevkaFixed-32.3.1.zip"
+FONT_URL="https://github.com/be5invis/Iosevka/releases/download/v32.3.1/PkgTTF-IosevkaFixed-32.3.1.zip"
+FONT_FILE_NAME="iosevka.zip"
 TEMP_DIR="/tmp/iosevka-font"
+DOWNLOAD_DIR="$HOME"
 
 # Check if wget is installed
 if ! command -v wget &> /dev/null; then
@@ -22,7 +24,7 @@ fi
 
 # Download the font ZIP file
 echo "Downloading Iosevka Fixed font..."
-wget -q "$FONT_URL" -O "$TEMP_DIR/iosevka-fixed.zip"
+wget -q "$FONT_URL" -O "$DOWNLOAD_DIR/$FONT_FILE_NAME"
 
 # Check if the download was successful
 if [ $? -eq 0 ]; then
@@ -33,15 +35,18 @@ if [ $? -eq 0 ]; then
 
   # Extract the ZIP file
   echo "Extracting the font files..."
-  sudo unzip -o "$TEMP_DIR/iosevka-fixed.zip" -d "$TEMP_DIR"
+  sudo unzip -o "$DOWNLOAD_DIR/$FONT_FILE_NAME" -d "$TEMP_DIR"
 
   # Copy the font files to the fonts directory
   echo "Copying font files to $DIR..."
-  sudo cp -r "$TEMP_DIR/iosevka-fixed/"* "$DIR/"
+  sudo cp -r "$TEMP_DIR/*" "$DIR/"
 
   # Clean up
   rm -rf "$TEMP_DIR"
-  echo "Font installation completed. Please run 'fc-cache -fv' to update the font cache."
+  rm -rf "$DOWNLOAD_DIR/$FONT_FILE_NAME"
+
+  # Update the font cache
+  fc-cache -fv
 
 else
   echo "Failed to download the font."
