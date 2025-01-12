@@ -165,3 +165,9 @@ hook global WinSetOption filetype=(python) %{
     set-option buffer formatcmd "black --quiet --fast --line-length 120 %val{buffile}"
 }
 
+# Rust
+hook global WinSetOption filetype=(rust) %{
+    set-option buffer formatcmd "rustfmt"
+}
+
+

@@ -280,6 +280,10 @@ globalkeys = gears.table.join(
   awful.key({ modkey }, "d", function() awful.spawn(rofi_launcher_path )  end,
     { description = "rofi", group = "launcher" }),
 
+      awful.key({ "Control" }, ".", function() awful.spawn("emoji-picker")  end,
+    { description = "emoji picker", group = "launcher" }),
+
+
   awful.key({ modkey }, "x",
     function()
       awful.prompt.run {

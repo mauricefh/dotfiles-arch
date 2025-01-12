@@ -1,0 +1,6 @@
+[language.python]
+filetypes = ["python"]
+roots = [".git", "setup.py"]
+command = "pyright-langserver"
+args = ["--stdio"]
+

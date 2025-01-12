@@ -10,7 +10,7 @@ run_once() {
 run_once nm-applet
 run_once volumeicon
 run_once blueman-applet
-run_once cbatticon
+run_once cbatticon -l 20 -r 10 -o "notify-send 'Battery is at 20%'" -c "notify-send 'Battery is at 10%'"
 run_once batsignal
 run_once picom
 run_once keepassxc
