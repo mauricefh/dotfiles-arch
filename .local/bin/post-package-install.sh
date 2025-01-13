@@ -4,3 +4,5 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER
 newgrp docker
 
+# pacman cache cleaner
+sudo systemctl enable paccache.timer

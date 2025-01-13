@@ -73,3 +73,5 @@ alias la='eza --oneline --long --color=always --group-directories-first --no-tim
 
 # Alias cat
 # alias cat='bat --force-colorization'
+
+alias py="python"

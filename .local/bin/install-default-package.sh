@@ -119,6 +119,7 @@ packages=(
     "ttf-linux-libertine"
     "just"
     "x11-emoji-picker-git"
+    "pacman-contrib"
 )
 
 npm_packages=(
