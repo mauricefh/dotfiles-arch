@@ -7,6 +7,6 @@ args = ["--stdio"]
 [language.markdown]
 filetypes = ["markdown"]
 roots = [".md"]
-command = "/home/curseedz/.cargo/bin/mdpls"
+command = "mdpls"
 settings = { markdown = { preview = { auto = true }}}
 
