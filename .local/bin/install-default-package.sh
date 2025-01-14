@@ -120,6 +120,7 @@ packages=(
     "just"
     "x11-emoji-picker-git"
     "pacman-contrib"
+    "pavucontrol"
 )
 
 npm_packages=(

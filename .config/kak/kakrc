@@ -74,9 +74,10 @@ map global normal <c-f> ':findgit '
 
 # Use find for quick jump to files
 # declare-option str findcmd 'find . -type f | grep -vFf .gitignore'
-declare-option str findcmd 'find . -type f'
-define-command find -menu -params 1 -shell-script-candidates %opt{findcmd} %{ edit %arg{1} }
-map global normal <c-F> ':find '
+declare-option str findlocalcmd 'find . -type f | git check-ignore --stdin -v || cat'
+define-command findlocal -menu -params 1 -shell-script-candidates %opt{findlocalcmd} %{ edit %arg{1} }
+map global normal <c-s-f> ':findlocal '
+
 
 
 # Indentation - always 2 spaces
