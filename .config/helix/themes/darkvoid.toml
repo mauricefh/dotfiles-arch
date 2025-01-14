@@ -39,7 +39,8 @@
 "ui.menu.selected" = { fg = "bg", bg = "pmenu_sel_bg", modifiers = ["bold"] }
 "ui.menu.scroll" = { fg = "pmenu_sel_bg", bg = "pmenu_bg" }
 "ui.selection" = { bg = "visual" }
-"ui.selection.primary" = { bg = "visual", modifiers = ["bold"] }
+# "ui.selection.primary" = { bg = "visual", modifiers = ["bold"] }
+"ui.selection.primary" = { bg = "pmenu_sel_bg", fg = "pmenu_sel_fg", modifiers = ["bold"] }
 "ui.highlight" = { bg = "visual", fg = "fg" }
 "ui.cursorline.primary" = { bg = "visual" }
 "ui.cursorline.secondary" = { bg = "visual" }
@@ -142,6 +143,7 @@ hint = "#bedc74"
 info = "#7fa1c3"
 pmenu_bg = "#1c1c1c"
 pmenu_sel_bg = "#1bfd9c"
+pmenu_sel_fg = "#0F7D55"
 pmenu_fg = "#c0c0c0"
 eob = "#3c3c3c"
 border = "#585858"

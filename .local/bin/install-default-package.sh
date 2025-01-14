@@ -121,6 +121,8 @@ packages=(
     "x11-emoji-picker-git"
     "pacman-contrib"
     "pavucontrol"
+    "helix"
+    "gitkraken-cli"
 )
 
 npm_packages=(

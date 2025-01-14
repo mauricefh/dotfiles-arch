@@ -4,9 +4,15 @@ theme = "darkvoid"
 line-number = "absolute"
 bufferline = "always"
 text-width = 120
+rulers = [120]
+true-color = true
+cursorline = true
+end-of-line-diagnostics = "hint"
+continue-comments = false
+# clipboard-provider = "x-sel"
 
 [editor.statusline]
-left = ["mode", "spinner"]
+left = ["mode", "spinner", "version-control", "file-name"]
 center = ["file-name"]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 separator = "│"
@@ -19,8 +25,43 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.indent-guides]
+character = "╎"
+render = true
+
+[editor.inline-diagnostics]
+cursor-line = "error" # Show inline diagnostics when the cursor is on the line
+other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
+
 [editor.file-picker]
 hidden = false
 
 [keys.insert.j]
 k = "normal_mode" # Maps `jk` to exit insert mode
+
+[keys.normal]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"
+
+C-space = "code_action"
+C-f = "file_picker" # Open the file picker
+C-b = "buffer_picker" # Open buffer picker
+C-x = ":bc" # Close current buffer
+C-v = "toggle_comments" # Toggle comment
+C-j = "jumplist_picker"
+
+[keys.insert]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"
