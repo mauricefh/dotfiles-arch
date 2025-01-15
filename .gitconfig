@@ -1,0 +1,15 @@
+[user]
+	email = inbox@mauricefh.com
+	name = Maurice Filiatreault-Hebert
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[merge]
+	tool = meld
+[core]
+	excludesFile = ~/.config/git/.gitignore
+[diff]
+	tool = meld
