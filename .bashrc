@@ -10,6 +10,11 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# Source git completion if available
+if [ -f /usr/share/git/completion/git-completion.bash ]; then
+    . /usr/share/git/completion/git-completion.bash
+fi
+
 # Source all scripts in .bashrc.d/
 if [ -d "$HOME/.bashrc.d" ]; then
     for file in "$HOME/.bashrc.d/"*.sh; do
