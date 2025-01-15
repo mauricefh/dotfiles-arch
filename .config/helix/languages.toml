@@ -1,17 +1,19 @@
-# [[language]]
-# name = "python"
-# language-servers = ["pylsp"]
-
-# [language.formatter]
-# command = "black"
-# args = ["--line-length", "120", "--quiet", "-"]
-
 [[language]]
 name = "python"
-roots = ["pyproject.toml", "setup.py", "Poetry.lock", ".git"]
-language-servers = [ "pyright-langserver" ]
-auto-format = true
+scope = "source.python"
+injection-regex = "py(thon)?"
+file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "SConstruct" }, { glob = "SConscript" }]
+shebangs = ["python", "uv"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json", ".git"]
+comment-token = "#"
+language-servers = ["ruff", "jedi", "pylsp"]
 formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
+indent = { tab-width = 4, unit = "    " }
+auto-format = true
+
+[[grammar]]
+name = "python"
+source = { git = "https://github.com/tree-sitter/tree-sitter-python", rev = "4bfdd9033a2225cc95032ce77066b7aeca9e2efc" }
 
 [[language]]
 name = "html"
