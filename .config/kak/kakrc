@@ -1,3 +1,6 @@
+# Debug
+# set-option global lsp_debug true
+
 require-module x11
 set global windowing_modules x11
 
@@ -11,8 +14,8 @@ set-option global autoreload true
 # add-highlighter global/ column 81 PrimarySelection
 # add-highlighter global/ wrap -word -indent -width 80
 
-add-highlighter global/ column 121 PrimarySelection
-add-highlighter global/ wrap -word -indent -width 120
+add-highlighter global/ column 81 PrimarySelection
+add-highlighter global/ wrap -word -indent -width 80
 # Show mathing brackets
 add-highlighter global/ show-matching
 
@@ -160,15 +163,82 @@ hook global WinSetOption filetype=(javascript|typescript|css|scss|json|markdown|
   set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
 }
 
-# Python
-# Define a Black formatter command for Kakoune's :format
-hook global WinSetOption filetype=(python) %{
-    set-option buffer formatcmd "black --quiet --fast --line-length 120 %val{buffile}"
-}
-
 # Rust
 hook global WinSetOption filetype=(rust) %{
     set-option buffer formatcmd "rustfmt"
 }
 
+hook -group lsp-filetype-rust global BufSetOption filetype=rust %{
+    set-option buffer lsp_servers %{
+        [rust-analyzer]
+        root_globs = ["Cargo.toml"]
+        command = "sh"
+        args = [
+            "-c",
+            """
+                if path=$(rustup which rust-analyzer 2>/dev/null); then
+                    exec "$path"
+                else
+                    exec rust-analyzer
+                fi
+            """,
+        ]
+        [rust-analyzer.experimental]
+        commands.commands = ["rust-analyzer.runSingle"]
+        hoverActions = true
+        [rust-analyzer.settings.rust-analyzer]
+        # See https://rust-analyzer.github.io/manual.html#configuration
+        # cargo.features = []
+        check.command = "clippy"
+    }
+}
 
+#GraphQL
+hook -group lsp-filetype-graphql global BufSetOption filetype=graphql %{
+    set-option buffer lsp_servers %opt{lsp_server_biome}
+
+}
+
+#Lua
+hook -group lsp-filetype-lua global BufSetOption filetype=lua %{
+    set-option buffer lsp_servers %{
+        [lua-language-server]
+        root_globs = [".git", ".hg"]
+        settings_section = "Lua"
+        [lua-language-server.settings.Lua]
+        # See https://github.com/sumneko/vscode-lua/blob/master/setting/schema.json
+        # diagnostics.enable = true
+    }
+}
+
+# Python
+hook global WinSetOption filetype=(python) %{
+    set-option buffer formatcmd "black --quiet --fast --line-length 120 %val{buffile}"
+}
+
+hook -group lsp-filetype-python global BufSetOption filetype=python %{
+    set-option buffer lsp_servers %{
+        [pylsp]
+        root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
+        settings_section = "_"
+        [pylsp.settings._]
+        # See https://github.com/python-lsp/python-lsp-server#configuration
+        pylsp.configurationSources = ["flake8"]
+        pylsp.plugins.jedi_completion.include_params = true
+        pylsp.plugins.rope_autoimport.enabled = true
+    }
+    # set-option buffer lsp_servers %{
+    #     [pyright-langserver]
+    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", "pyrightconfig.json", ".git", ".hg"]
+    #     args = ["--stdio"]
+    # }
+    # set-option -add buffer lsp_servers %{
+    #     [ruff]
+    #     args = ["server", "--quiet"]
+    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
+    #     settings_section = "_"
+    #     [ruff.settings._.globalSettings]
+    #     organizeImports = true
+    #     fixAll = true
+    # }
+}

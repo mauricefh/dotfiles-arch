@@ -1,8 +1,8 @@
 [language.python]
 filetypes = ["python"]
-roots = [".git", "setup.py"]
-command = "pyright-langserver"
-args = ["--stdio"]
+roots = ["requirements.txt", "setup.py", ".git", ".hg"]
+command = "pylsp"
+offset_encoding = "utf-8"
 
 [language.markdown]
 filetypes = ["markdown"]

@@ -1,44 +1,71 @@
+
 [[language]]
 name = "python"
-scope = "source.python"
-injection-regex = "py(thon)?"
-file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "SConstruct" }, { glob = "SConscript" }]
-shebangs = ["python", "uv"]
-roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json", ".git"]
-comment-token = "#"
-language-servers = ["ruff", "jedi", "pylsp"]
+language-id = "python"
+roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
+language-servers = ["ruff", "basedpyright", "jedi", "pylsp"]
+# language-servers = ["ruff", "basedpyright"]
+# formatter = { command = "bash", args = ["-c", "ruff check --fix - | ruff format -"] }
 formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
-indent = { tab-width = 4, unit = "    " }
+file-types = ["py", "ipynb"]
+comment-token = "#"
+shebangs = ["python"]
 auto-format = true
 
-[[grammar]]
-name = "python"
-source = { git = "https://github.com/tree-sitter/tree-sitter-python", rev = "4bfdd9033a2225cc95032ce77066b7aeca9e2efc" }
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+# except-features = ["format", "code-action"]
 
-[[language]]
-name = "html"
-formatter = { command = 'prettier', args = ["--parser", "html"] }
+[language-server.basedpyright.config.basedpyright.analysis]
+autoSearchPaths = true
+typeCheckingMode = "basic"
+diagnosticMode = "openFilesOnly"
+autoImportCompletions = true
 
-[[language]]
-name = "json"
-formatter = { command = 'jq' }
-# formatter = { command = 'prettier', args = ["--parser", "json"] }
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
+environment = { "RUFF_TRACE" = "messages" }
 
-[[language]]
-name = "css"
-formatter = { command = 'prettier', args = ["--parser", "css"] }
+[language-server.ruff.config.settings]
+lineLength = 100
+logLevel = "debug"
 
-[[language]]
-name = "javascript"
-formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-auto-format = true
+[language-server.ruff.config.settings.lint]
+select = ["E", "F", "W", "B", "I", "RUF", "N", "LOG", "ERA", "W", "D", "UP", "ANN", "ASYNC", "S", "RET", "TCH", "ARG", "PTH", "DOC"]
+preview = true
 
-[[language]]
-name = "typescript"
-formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-auto-format = true
+[language-server.ruff.config.settings.format]
+preview = true
+quote-style = "double"
+docstring-code-format = true
+indent-style = "space"
 
-[[language]]
-name = "markdown"
-formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-auto-format = true
+# [[language]]
+# name = "html"
+# formatter = { command = 'prettier', args = ["--parser", "html"] }
+
+# [[language]]
+# name = "json"
+# formatter = { command = 'jq' }
+# # formatter = { command = 'prettier', args = ["--parser", "json"] }
+
+# [[language]]
+# name = "css"
+# formatter = { command = 'prettier', args = ["--parser", "css"] }
+
+# [[language]]
+# name = "javascript"
+# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+# auto-format = true
+
+# [[language]]
+# name = "typescript"
+# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+# auto-format = true
+
+# [[language]]
+# name = "markdown"
+# formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+# auto-format = true
