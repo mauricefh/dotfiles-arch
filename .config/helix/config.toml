@@ -7,7 +7,7 @@ text-width = 120
 rulers = [120]
 true-color = true
 cursorline = true
-end-of-line-diagnostics = "hint"
+end-of-line-diagnostics = "warning"
 continue-comments = false
 # clipboard-provider = "x-sel"
 
@@ -52,10 +52,12 @@ end = "no_op"
 C-space = "code_action"
 C-f = "file_picker" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
-C-x = ":bc" # Close current buffer
 C-v = "toggle_comments" # Toggle comment
 C-j = "jumplist_picker" # Jump list picker
-C-l = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
+C-h = ":bp" # Goto previous buffer
+C-l = ":bn" # Goto next buffer
+C-x = ":bc" # Close current buffer
 
 [keys.insert]
 up = "no_op"
@@ -66,3 +68,13 @@ pageup = "no_op"
 pagedown = "no_op"
 home = "no_op"
 end = "no_op"
+
+C-space = "code_action"
+C-f = "file_picker" # Open the file picker
+C-b = "buffer_picker" # Open buffer picker
+C-v = "toggle_comments" # Toggle comment
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
+C-h = ":bp" # Goto previous buffer
+C-l = ":bn" # Goto next buffer
+C-x = ":bc" # Close current buffer
+

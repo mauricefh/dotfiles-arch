@@ -1,5 +1,5 @@
 # [Created by task 3.2.0 1/10/2025 18:53:55]
-data.location=/home/mauricefh/.task
+data.location=~/.task
 news.version=3.2.0
 
 # To use the default location of the XDG directories,
@@ -19,9 +19,8 @@ news.version=3.2.0
 #include dark-blue-256.theme
 #include dark-violets-256.theme
 #include dark-yellow-green.theme
-#include dark-gray-256.theme
+include dark-gray-256.theme
 #include dark-gray-blue-256.theme
 #include solarized-dark-256.theme
 #include solarized-light-256.theme
 #include no-color.theme
-

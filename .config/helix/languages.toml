@@ -3,7 +3,8 @@
 name = "python"
 language-id = "python"
 roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
-language-servers = ["ruff", "basedpyright", "jedi", "pylsp"]
+# language-servers = ["ruff", "basedpyright", "jedi", "pylsp"]
+language-servers = ["ruff", "basedpyright", "jedi"]
 formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
 file-types = ["py", "ipynb"]
 comment-token = "#"
@@ -30,14 +31,47 @@ lineLength = 120
 logLevel = "debug"
 
 [language-server.ruff.config.settings.lint]
-select = ["E", "F", "W", "B", "I", "RUF", "N", "LOG", "ERA", "W", "D", "UP", "ANN", "ASYNC", "S", "RET", "TCH", "ARG", "PTH", "DOC"]
+# Rules to enable:
+# E: PEP 8 style violations (e.g., line length, indentation)
+# F: Pyflakes rules (e.g., unused imports, undefined variables)
+# B: Bandit rules (security-related issues)
+# I: Import-related rules (e.g., order, grouping)
+# RUF: Ruff-specific rules
+# N: Naming conventions
+# LOG: Logging best practices
+# ERA: Error handling and raising exceptions
+# W: General warnings
+# D: Docstring-related rules (e.g., formatting, presence)
+# UP: Modernization and updates (e.g., Python version-specific suggestions)
+# ANN: Type annotation checks
+# ASYNC: Async-related rules
+# S: String-related rules (e.g., f-strings, formatting)
+# RET: Return statement checks
+# TCH: Try-catch block checks
+# ARG: Function argument-related rules
+# PTH: Path-related rules
+# DOC: Documentation rules (beyond basic docstrings)
+select = ["E", "F", "B", "I", "RUF", "N", "LOG", "ERA", "D", "UP", "ANN", "ASYNC", "S", "RET", "TCH", "ARG", "PTH"]
+
+# Rules to ignore:
+# F401: Ignore warnings for unused imports
+# F811: Ignore warnings for redefined variables (e.g., in function overrides)
+# F841: Ignore warnings for unused local variables
+# ARG001: Ignore rules for unused function arguments
+# ARG002: Ignore rules for unused method arguments
+# ARG003: Ignore rules for unused class arguments
+# D100: Ignore warnings for missing docstring in public modules
+# D101: Ignore warnings for missing docstring in public class
+# D103: Ignore warnings for missing docstring in public functions
+# ERA001: Ignore warnings for commented out code
+ignore = ["F401", "F811", "F841", "ARG001", "ARG002", "ARG003", "D100", "D101", "D102", "D103", "ERA001"]
 preview = true
 
-[language-server.ruff.config.settings.format]
-preview = true
-quote-style = "double"
-docstring-code-format = true
-indent-style = "space"
+# [language-server.ruff.config.settings.format]
+# preview = true
+# quote-style = "double"
+# docstring-code-format = true
+# indent-style = "space"
 
 [[language]]
 name = "html"
