@@ -54,7 +54,8 @@ C-f = "file_picker" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-x = ":bc" # Close current buffer
 C-v = "toggle_comments" # Toggle comment
-C-j = "jumplist_picker"
+C-j = "jumplist_picker" # Jump list picker
+C-l = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 
 [keys.insert]
 up = "no_op"

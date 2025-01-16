@@ -71,7 +71,7 @@ alias la='eza --oneline --long --color=always --group-directories-first --no-tim
 # Alias fzf
 # alias fzf="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 
-# Alias cat
-# alias cat='bat --force-colorization'
 alias py="python"
 alias note="/usr/bin/git --git-dir=$HOME/.notes --work-tree=$HOME"
+
+alias dfu="dotfiles commit -am 'update' && dotfiles pull && dotfiles push"
