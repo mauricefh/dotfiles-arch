@@ -4,8 +4,6 @@ name = "python"
 language-id = "python"
 roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
 language-servers = ["ruff", "basedpyright", "jedi", "pylsp"]
-# language-servers = ["ruff", "basedpyright"]
-# formatter = { command = "bash", args = ["-c", "ruff check --fix - | ruff format -"] }
 formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
 file-types = ["py", "ipynb"]
 comment-token = "#"
@@ -15,7 +13,6 @@ auto-format = true
 [language-server.basedpyright]
 command = "basedpyright-langserver"
 args = ["--stdio"]
-# except-features = ["format", "code-action"]
 
 [language-server.basedpyright.config.basedpyright.analysis]
 autoSearchPaths = true
@@ -29,7 +26,7 @@ args = ["server", "--preview"]
 environment = { "RUFF_TRACE" = "messages" }
 
 [language-server.ruff.config.settings]
-lineLength = 100
+lineLength = 120
 logLevel = "debug"
 
 [language-server.ruff.config.settings.lint]
@@ -42,30 +39,30 @@ quote-style = "double"
 docstring-code-format = true
 indent-style = "space"
 
-# [[language]]
-# name = "html"
-# formatter = { command = 'prettier', args = ["--parser", "html"] }
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
 
-# [[language]]
-# name = "json"
-# formatter = { command = 'jq' }
-# # formatter = { command = 'prettier', args = ["--parser", "json"] }
+[[language]]
+name = "json"
+formatter = { command = 'jq' }
+# formatter = { command = 'prettier', args = ["--parser", "json"] }
 
-# [[language]]
-# name = "css"
-# formatter = { command = 'prettier', args = ["--parser", "css"] }
+[[language]]
+name = "css"
+formatter = { command = 'prettier', args = ["--parser", "css"] }
 
-# [[language]]
-# name = "javascript"
-# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-# auto-format = true
+[[language]]
+name = "javascript"
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
 
-# [[language]]
-# name = "typescript"
-# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-# auto-format = true
+[[language]]
+name = "typescript"
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
 
-# [[language]]
-# name = "markdown"
-# formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-# auto-format = true
+[[language]]
+name = "markdown"
+formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+auto-format = true
