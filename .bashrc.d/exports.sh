@@ -54,8 +54,8 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | 
 # fzf preview for tmux
 export FZF_TMUX_OPTS=" -p90%,70% "
 
-export TASKRC="$HOME/.config/task/"
-export VIT_DIR="$HOME/.config/vit/"
+export TASKRC="$HOME/.config/task/taskrc"
+export VIT_DIR="$HOME/.config/vit"
 
 # Update PATH
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$PATH"

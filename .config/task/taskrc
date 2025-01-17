@@ -1,5 +1,3 @@
-# [Created by task 3.2.0 1/10/2025 18:53:55]
-# data.location=~/.config/task/data
 news.version=3.2.0
 
 data.location=~/.local/share/task
@@ -19,5 +17,5 @@ hooks.location=~/.config/task/hooks
 include dark-gray-256.theme
 #include dark-gray-blue-256.theme
 #include solarized-dark-256.theme
-#include solarized-light-256.theme
+# include solarized-light-256.theme
 #include no-color.theme
