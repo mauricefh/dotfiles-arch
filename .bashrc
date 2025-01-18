@@ -52,5 +52,5 @@ eval "$(pyenv init - bash)"
 # if [ ! -d "$HOME/.dotfiles" ]; then
 #   printf "If you are a new user, chmod +x and run the following script: \n - git-bare-repo-init.sh \n - install-default-package.sh \n - install-iosevka-font.sh \n\nThey are located in ~/.local/bin/\n"
 # fi
-source "$HOME/.npm-global/lib/node_modules/@hyperupcall/autoenv/activate.sh"
+source "$NPMGLOBAL/@hyperupcall/autoenv/activate.sh"
 
