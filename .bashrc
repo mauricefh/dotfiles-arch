@@ -22,6 +22,9 @@ if [ -d "$HOME/.bashrc.d" ]; then
     done
 fi
 
+if [ -f "$HOME/.xinitrc" ]; then
+    . "$HOME/.xinitrc"
+fi
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
