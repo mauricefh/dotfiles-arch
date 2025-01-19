@@ -57,3 +57,12 @@ jqf() {
 kak-lsp-restart() {
   pkill kak-lsp && kak-lsp
 }
+
+dbx-upload() {
+    if [ -z "$1" ]; then
+        echo "Error: No path provided. Usage: dbx-upload <path>" >&2
+        return 1
+    fi
+
+    fd --full-path "$1" -x dbxcli put {}
+}

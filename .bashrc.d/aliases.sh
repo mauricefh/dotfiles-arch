@@ -13,6 +13,7 @@ alias pacman='sudo pacman'
 alias pacman-search='sudo pacman -Ss'
 alias pacman-rm='sudo pacman -Rcns'
 alias pacman-rm-safe='sudo pacman -Runs'
+alias pacman-update="sudo pacman -Syu --noconfirm && paru -Syu --noconfirm"
 
 # Quick directory access
 alias web='cd /var/www/html'
@@ -74,4 +75,5 @@ alias la='eza --oneline --long --color=always --group-directories-first --no-tim
 alias py="python"
 alias note="/usr/bin/git --git-dir=$HOME/.notes --work-tree=$HOME"
 
+# Dotfiles update
 alias dfu="dotfiles commit -am 'update' && dotfiles pull && dotfiles push"
