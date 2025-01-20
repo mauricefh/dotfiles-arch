@@ -2,7 +2,6 @@
 
 # Git bare repo config manager
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-echo ".cfg" >> .gitignore
 
 # Directory navigation aliases
 alias home='cd ~'
