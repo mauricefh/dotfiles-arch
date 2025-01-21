@@ -58,11 +58,49 @@ kak-lsp-restart() {
   pkill kak-lsp && kak-lsp
 }
 
+# dbx-upload() {
+#     if [ -z "$1" ]; then
+#         echo "Error: No path provided. Usage: dbx-upload <source-path> [destination-folder]" >&2
+#         return 1
+#     fi
+
+#     if [ -z "$2" ]; then
+#         # Only the first argument is provided
+#         fd --full-path "$1" -x dbxcli put {}
+#     else
+#         # Both arguments are provided
+#         dbxcli mkdir "$2" && fd --full-path "$1" -x dbxcli put "$2/{.}"
+#     fi
+# }
+
 dbx-upload() {
     if [ -z "$1" ]; then
-        echo "Error: No path provided. Usage: dbx-upload <path>" >&2
+        echo "Error: No path provided. Usage: dbx-upload <source-path> [destination-folder]" >&2
         return 1
     fi
 
-    fd --full-path "$1" -x dbxcli put {}
+    # Check if the first argument is a single file
+    if [ -f "$1" ]; then
+        # Handle single file upload
+        if [ -z "$2" ]; then
+            # No destination folder provided, upload to root
+            dbxcli put "$1"
+        else
+            # Destination folder provided
+            echo "$1"
+            echo "$2"
+            
+            dbxcli mkdir "$2" && dbxcli put "$1" "$2/"
+        fi
+    else
+        # Handle multiple files or search pattern using fd
+        if [ -z "$2" ]; then
+            # No destination folder provided, upload files to root
+            fd --full-path "$1" -x dbxcli put {}
+        else
+            # Destination folder provided
+            dbxcli mkdir "$2" && fd --full-path "$1" -x echo "$2/{.}"
+        fi
+    fi
 }
+
