@@ -438,13 +438,13 @@ awful.rules.rules = {
     }
   },
 
-  {
-    rule = { class = "slack" },
-    properties = {
-      focus = false, -- Prevent Slack windows from gaining focus
-      raise = false, -- Prevent Slack windows from being raised
-    }
-  },
+  -- {
+  --   rule = { class = "slack" },
+  --   properties = {
+  --     focus = false, -- Prevent Slack windows from gaining focus
+  --     raise = false, -- Prevent Slack windows from being raised
+  --   }
+  -- },
 
   -- Floating clients.
   {
