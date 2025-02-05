@@ -13,3 +13,5 @@
 	excludesFile = ~/.config/git/.gitignore
 [diff]
 	tool = meld
+[init]
+	defaultBranch = main

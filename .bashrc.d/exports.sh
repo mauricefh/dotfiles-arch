@@ -60,5 +60,7 @@ export VIT_DIR="$HOME/.config/vit"
 # NPM Global Path
 export NPMGLOBAL="$HOME/.npm-global/lib/node_modules"
 
+export HELIX_RUNTIME="$HOME/src/helix/runtime"
+
 # Update PATH
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$PATH"
