@@ -28,6 +28,9 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
+# Dotnet
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # fzf configuration
 export FZF_DEFAULT_OPTS='--height 40%'
 
@@ -62,5 +65,7 @@ export NPMGLOBAL="$HOME/.npm-global/lib/node_modules"
 
 export HELIX_RUNTIME="$HOME/src/helix/runtime"
 
+export DOTNET_ROOT="$HOME/.dotnet"
+
 # Update PATH
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
