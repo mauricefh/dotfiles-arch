@@ -33,6 +33,14 @@ else
     echo "git is already installed."
 fi
 
+# Check for unzip and install if not present
+if ! command_exists "unzip"; then
+    echo "unzip is not installed. Installing..."
+    install_pacman "unzip"
+else
+    echo "unzip is already installed."
+fi
+
 # Check for curl and install rustup if not installed
 if ! command_exists "rustup"; then
     echo "rustup is not installed. Installing..."
@@ -50,10 +58,10 @@ fi
 # Check for paru and install it if not installed
 if ! command_exists "paru"; then
     echo "paru is not installed. Installing..."
-    git clone https://aur.archlinux.org/cgit/aur.git/git/paru.git
-    cd paru
+    git clone https://aur.archlinux.org/paru.git $HOME/src
+    cd "$HOME/src/paru"
     makepkg -si --noconfirm
-    cd ..
+    cd "$HOME"
 else
     echo "paru is already installed."
 fi
@@ -101,7 +109,6 @@ packages=(
     "python-pip"
     "python-pipx"
     "rofi"
-    "ttf-iosevka"
     "thunderbird"
     "trash-cli"
     "docker"
@@ -110,8 +117,6 @@ packages=(
     "simplescreenrecorder"
     "task"
     "vit"
-    "aws-cli"
-    "aws-sam-cli"
     "noto-fonts"
     "noto-fonts-cjk"
     "noto-fonts-emoji"
@@ -123,6 +128,11 @@ packages=(
     "pavucontrol"
     "helix"
     "gitkraken-cli"
+    "fzf"
+    "rofi"
+    "pyenv"
+    "starship"
+    "ttf-iosevka"
 )
 
 npm_packages=(
@@ -156,4 +166,17 @@ for package in "${npm_packages[@]}"; do
 done
 
 echo "All packages checked/installed."
+
+echo "Running post install script..."
+# docker & docker compose
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+# pacman cache cleaner
+sudo systemctl enable paccache.timer
+
+# Prevent screen from going into sleep on lid close
+sudo echo "HandleLidSwitch=ignore" >> /etc/systemd/logind.conf
 

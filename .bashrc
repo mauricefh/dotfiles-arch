@@ -54,3 +54,11 @@ eval "$(pyenv init - bash)"
 # fi
 source "$NPMGLOBAL/@hyperupcall/autoenv/activate.sh"
 
+. "$HOME/.cargo/env"
+
+# fnm
+FNM_PATH="/home/mauricefh/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
