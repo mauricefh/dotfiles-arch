@@ -19,7 +19,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Environement variable
 local home = os.getenv("HOME")
 local user = os.getenv("USER")
-local terminal = "zutty"
+local terminal = "alacritty"
 local editor = os.getenv("EDITOR") or "nano"
 local editor_cmd = terminal .. " -e " .. editor
 local browser = "chromium"

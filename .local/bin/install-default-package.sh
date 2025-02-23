@@ -134,6 +134,9 @@ packages=(
     "pyenv"
     "starship"
     "ttf-iosevka"
+    "syncthing"
+    "ffmpegthumbs"
+    "ffmpegthumbnailer"
 )
 
 npm_packages=(
@@ -157,6 +160,8 @@ done
 if ! command_exists "fnm"; then
     echo "fnm is not installed. Installing via cargo..."
     install_cargo_package "fnm"
+    fnm install --lts
+    fnm use --lts
 else
     echo "fnm is already installed."
 fi
@@ -181,3 +186,5 @@ sudo systemctl enable paccache.timer
 # Prevent screen from going into sleep on lid close
 sudo echo "HandleLidSwitch=ignore" >> /etc/systemd/logind.conf
 
+# Syncthing service
+sudo systemctl enable --now syncthing@mauricefh.service
