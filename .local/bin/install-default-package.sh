@@ -87,6 +87,7 @@ install_package() {
 packages=(
     "base-devel"
     "network-manager-applet"
+    "github-cli"
     "cbatticon"
     "volumeicon"
     "flameshot"
