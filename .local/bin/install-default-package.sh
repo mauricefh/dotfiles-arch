@@ -137,6 +137,7 @@ packages=(
     "syncthing"
     "ffmpegthumbs"
     "ffmpegthumbnailer"
+    "brightnessctl"
 )
 
 npm_packages=(
@@ -149,6 +150,10 @@ npm_packages=(
     "vscode-langservers-extracted"
     "yaml-language-server"
     "@hyperupcall/autoenv"
+)
+
+cargo_package=(
+    "--git https://github.com/euclio/mdpls"
 )
 
 # Install all listed packages
@@ -169,6 +174,11 @@ fi
 # Loop through the npm packages and install them
 for package in "${npm_packages[@]}"; do
     npm install -g "$package"
+done
+
+# Loop through the cargo packages and install them
+for package in "${cargo_packages[@]}"; do
+    cargo install "$package"
 done
 
 echo "All packages checked/installed."

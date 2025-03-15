@@ -2,6 +2,11 @@
 
 # Git bare repo config manager
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dfu="dotfiles commit -am 'update' && dotfiles pull && dotfiles push"
+
+# Note
+alias note="/usr/bin/git --git-dir=$HOME/.notes --work-tree=$HOME"
+alias nu="note commit -am 'update' && note pull && note push"
 
 # Directory navigation aliases
 alias home='cd ~'
@@ -72,7 +77,3 @@ alias la='eza --oneline --long --color=always --group-directories-first --no-tim
 # alias fzf="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 
 alias py="python"
-alias note="/usr/bin/git --git-dir=$HOME/.notes --work-tree=$HOME"
-
-# Dotfiles update
-alias dfu="dotfiles commit -am 'update' && dotfiles pull && dotfiles push"
