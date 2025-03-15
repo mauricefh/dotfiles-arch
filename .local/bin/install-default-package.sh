@@ -150,6 +150,7 @@ npm_packages=(
     "vscode-langservers-extracted"
     "yaml-language-server"
     "@hyperupcall/autoenv"
+    "bash-language-server"
 )
 
 cargo_package=(
