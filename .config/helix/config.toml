@@ -59,6 +59,7 @@ C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open laz
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
+C-t = ":sh alacritty" # Open a new terminal in the current buffer location
 
 [keys.insert]
 up = "no_op"
