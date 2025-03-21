@@ -9,6 +9,7 @@ true-color = true
 cursorline = true
 end-of-line-diagnostics = "warning"
 continue-comments = false
+auto-format	= true
 # clipboard-provider = "x-sel"
 
 [editor.statusline]
