@@ -128,7 +128,12 @@ auto-format = true
 language-servers = ["typescript-language-server", "vscode-eslint-language-server", "emmet-ls", "tailwindcss-ls"]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
+
 [[language]]
 name = "markdown"
-formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+language-servers = ["marksman", "mdpls"]
 auto-format = true
+
+[language-server.mdpls]
+command = "/home/mauricefh/.cargo/bin/mdpls"
+config = { markdown.preview.auto = true }

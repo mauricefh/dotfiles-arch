@@ -38,6 +38,7 @@ alias hxf='hx "$(fzf)"'
 alias shxf='sudo helix "$(fzf)"'
 alias unzip='unzip -O UTF-8'
 alias clip='xclip -selection clipboard'
+alias lg='lazygit'
 
 # File permissions shortcuts
 alias mx='chmod a+x'  # Make file executable
