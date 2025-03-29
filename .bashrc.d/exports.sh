@@ -16,8 +16,8 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export LINUXTOOLBOXDIR="$HOME/linuxtoolbox"
 
 # Set the default editor
-export EDITOR=helix
-export VISUAL=helix
+export EDITOR=hx
+export VISUAL=hx
 
 # Color settings for `less` when viewing man pages
 export LESS_TERMCAP_mb=$'\e[01;31m'

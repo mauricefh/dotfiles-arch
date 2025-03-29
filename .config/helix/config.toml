@@ -3,14 +3,17 @@ theme = "darkvoid"
 [editor]
 line-number = "absolute"
 bufferline = "always"
-text-width = 120
-rulers = [120]
+text-width = 100
+rulers = [100]
 true-color = true
 cursorline = true
 end-of-line-diagnostics = "warning"
 continue-comments = false
 auto-format	= true
 # clipboard-provider = "x-sel"
+
+[editor.soft-wrap]
+enable = true
 
 [editor.statusline]
 left = ["mode", "spinner", "version-control", "file-name"]
@@ -56,11 +59,12 @@ C-f = "file_picker" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
 C-j = "jumplist_picker" # Jump list picker
-C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
 C-t = ":sh alacritty" # Open a new terminal in the current buffer location
+C-y = ":sh open-yazi"
+C-g = ":sh open-lazygit"
 
 [keys.insert]
 up = "no_op"
@@ -77,7 +81,7 @@ C-e = "file_explorer" # Open the file explorer
 C-f = "file_picker" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
-C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
+# C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
