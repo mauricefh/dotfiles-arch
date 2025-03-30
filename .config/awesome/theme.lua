@@ -7,7 +7,7 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local home = os.getenv("HOME")
 local user = os.getenv("USER")
-local wallpaper_path = home .. "/.config/awesome/background.jpg"
+local wallpaper_path = home .. "/.config/background/image-1.jpg"
 
 gears.wallpaper.maximized(wallpaper_path, s)
 

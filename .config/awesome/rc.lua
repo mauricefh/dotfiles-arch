@@ -19,7 +19,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Environement variable
 local home = os.getenv("HOME")
 local user = os.getenv("USER")
-local terminal = "alacritty"
+local terminal = "ghostty"
 local editor = os.getenv("EDITOR") or "nano"
 local editor_cmd = terminal .. " -e " .. editor
 local browser = "chromium"
@@ -450,6 +450,7 @@ awful.rules.rules = {
   {
     rule_any = {
       instance = {
+        "yazi", "lazygit"
       },
       class = {
         "Arandr"
@@ -466,15 +467,19 @@ awful.rules.rules = {
     properties = { floating = true }
   },
 
-  -- Set Firefox to always map on the tag named "2" on screen 1.
-  -- { rule = { class = "Firefox" },
-  --   properties = { screen = 1, tag = "2" } },
 }
 -- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
+    local title = c.name:lower()
+    if title:match("yazi") or title:match("lazygit") then
+        awful.client.floating.toggle(c)
+        c.width = 1200  -- optional: set size
+        c.height = 800
+        awful.placement.centered(c)
+    end
   -- Set the windows at the slave,
   -- i.e. put it at the end of others instead of setting it master.
   if not awesome.startup then awful.client.setslave(c) end

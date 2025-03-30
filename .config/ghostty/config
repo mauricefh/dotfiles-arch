@@ -1,5 +1,8 @@
 font-family = IosevkaFixed
-font-size = 14.0
+font-style-bold = false
+font-style-italic = false
+font-style-bold-italic = false
+font-size = 16.0
 foreground = #c0b18b
 background = #262626
 background-opacity = 1.0

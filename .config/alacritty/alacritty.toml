@@ -16,3 +16,7 @@ size = 10
 [window]
 decorations = "none"
 opacity = 1.0
+
+# [terminal.shell]
+# program = "~/.local/bin/alacritty-run"
+# args = []

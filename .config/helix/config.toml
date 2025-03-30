@@ -62,7 +62,7 @@ C-j = "jumplist_picker" # Jump list picker
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
-C-t = ":sh alacritty" # Open a new terminal in the current buffer location
+C-t = ":sh ghostty" # Open a new terminal in the current buffer location
 C-y = ":sh open-yazi"
 C-g = ":sh open-lazygit"
 
