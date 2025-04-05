@@ -23,7 +23,7 @@ local terminal = "ghostty"
 local editor = os.getenv("EDITOR") or "nano"
 local editor_cmd = terminal .. " -e " .. editor
 local browser = "chromium"
-local rofi_launcher_path = "/home/" .. user .. "/.config/rofi/scripts/launcher_t4"
+local rofi_launcher_path = home .. "/.config/rofi/scripts/launcher_t4"
 
 -- Enable hotkeys help widget for VIM and other apps
 require("awful.hotkeys_popup.keys")
@@ -473,13 +473,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
-    local title = c.name:lower()
-    if title:match("yazi") or title:match("lazygit") then
-        awful.client.floating.toggle(c)
-        c.width = 1200  -- optional: set size
-        c.height = 800
-        awful.placement.centered(c)
-    end
   -- Set the windows at the slave,
   -- i.e. put it at the end of others instead of setting it master.
   if not awesome.startup then awful.client.setslave(c) end

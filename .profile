@@ -2,5 +2,5 @@
 
 
 # Added by Toolbox App
-export PATH="$PATH:/home/curseedz/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$PATH:/home/mauricefh/.local/share/JetBrains/Toolbox/scripts"
 

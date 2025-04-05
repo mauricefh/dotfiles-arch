@@ -10,3 +10,4 @@ selection-foreground = #2f2f2f
 selection-background = #d75f5f
 window-decoration = false
 confirm-close-surface = false
+app-notifications = false

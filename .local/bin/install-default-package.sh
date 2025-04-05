@@ -138,6 +138,8 @@ packages=(
     "ffmpegthumbs"
     "ffmpegthumbnailer"
     "brightnessctl"
+    "ghostty"
+    "yazi"
 )
 
 npm_packages=(
@@ -155,6 +157,7 @@ npm_packages=(
 
 cargo_package=(
     "--git https://github.com/euclio/mdpls"
+    "lsp-ai"
 )
 
 # Install all listed packages
