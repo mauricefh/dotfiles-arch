@@ -139,3 +139,71 @@ auto-format = true
 [language-server.mdpls]
 command = "/home/mauricefh/.cargo/bin/mdpls"
 config = { markdown.preview.auto = true }
+
+# # Latex
+# [[language]]
+# name = "tex"
+# scope = "text.tex"
+# injection-regex = "tex"
+# file-types = ["tex", "cls", "sty"]
+# roots = []
+# auto-format = true
+# indent = { tab-width = 2, unit = "  " }
+
+# # LaTeX Language Server (TexLab)
+# [language-server.texlab]
+# command = "texlab"
+
+# # TexLab Configuration (split into separate tables)
+# [language-server.texlab.config]
+# texlab.build.executable = "latexmk"
+# texlab.build.args = ["-pdf", "-interaction=nonstopmode", "-synctex=1", "%f"]
+# texlab.build.onSave = false
+# texlab.build.forwardSearchAfter = false
+
+# # Forward Search (SyncTeX)
+# texlab.forwardSearch.executable = "zathura"
+# texlab.forwardSearch.args = ["--synctex-forward", "%l:1:%f", "%p"]
+
+# # Diagnostics (chktex)
+# texlab.chktex.onOpenAndSave = true
+# texlab.chktex.onEdit = false
+
+# # Formatting
+# texlab.latexFormatter = "latexindent"
+# texlab.latexindent.modifyLineBreaks = false
+
+# # Inlay Hints
+# texlab.inlayHints.labelDefinitions = true
+# texlab.inlayHints.labelReferences = true
+
+
+[language-server.texlab]
+command = "texlab"
+
+[language-server.texlab.config]
+auxDirectory = "output"
+
+[language-server.texlab.config.chktex]
+onOpenAndSave = true
+onEdit = true
+
+[language-server.texlab.config.build]
+forwardSearchAfter = false
+onSave = true
+executable = "tectonic"
+args = [
+	"-X",
+	"compile",
+	"%f",
+	"--synctex",
+	"--keep-logs",
+	"--keep-intermediates",
+	"--outdir=output",
+	"-Zshell-escape",
+]
+
+[[language]]
+name = "latex"
+language-servers = ["texlab", "ltex"] # ltex provides some autocompletion/grammar suggestions
+indent = { tab-width = 4, unit = "\t" }
