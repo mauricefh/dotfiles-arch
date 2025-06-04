@@ -35,8 +35,7 @@ character = "╎"
 render = true
 
 [editor.inline-diagnostics]
-cursor-line = "error" # Show inline diagnostics when the cursor is on the line
-other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
+cursor-line = "warning"
 
 [editor.file-picker]
 hidden = false
@@ -65,8 +64,16 @@ C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
 C-t = ":sh ghostty" # Open a new terminal in the current buffer location
 # C-y = ":sh open-yazi"
-C-g = ":sh open-lazygit"
+# C-g = ":sh open-lazygit"
 S-y = ":yank-diagnostic"
+C-g = [
+  ":write-all",
+  ":insert-output lazygit >/dev/tty",
+  ":redraw",
+  ":set mouse false",
+  ":set mouse true",
+  ":reload-all"
+]
 C-y = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
