@@ -78,3 +78,4 @@ alias la='eza --oneline --long --color=always --group-directories-first --no-tim
 # alias fzf="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 
 alias py="python"
+alias npm="pnpm"

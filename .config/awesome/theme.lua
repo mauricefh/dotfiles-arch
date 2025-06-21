@@ -3,6 +3,7 @@ local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
 local beautiful = require("beautiful")
 local gfs = require("gears.filesystem")
+-- local rnotification = require("ruled.notification")
 
 local themes_path = gfs.get_themes_dir()
 local home = os.getenv("HOME")
@@ -31,5 +32,13 @@ theme.border_focus  = "#00FF00"       -- Green for active windows
 theme.border_marked = "#91231c"       -- Optional: color for marked windows
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(2)          -- Border width
+
+-- Set different colors for urgent notifications.
+-- rnotification.connect_signal('request::rules', function()
+--     rnotification.append_rule {
+--         rule       = { urgency = 'critical' },
+--         properties = { bg = '#ff0000', fg = '#ffffff' }
+--     }
+-- end)
 
 return theme

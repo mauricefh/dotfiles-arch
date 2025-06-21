@@ -62,7 +62,7 @@ C-j = "jumplist_picker" # Jump list picker
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
-C-t = ":sh ghostty" # Open a new terminal in the current buffer location
+C-t = ":sh wezterm start --always-new-process" # Open a new terminal in the current buffer location
 # C-y = ":sh open-yazi"
 # C-g = ":sh open-lazygit"
 S-y = ":yank-diagnostic"
@@ -76,7 +76,7 @@ C-g = [
 ]
 C-y = [
   ':sh rm -f /tmp/unique-file',
-  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file',
   ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',

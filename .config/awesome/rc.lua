@@ -349,7 +349,10 @@ clientkeys = gears.table.join(
       c.maximized_horizontal = not c.maximized_horizontal
       c:raise()
     end,
-    { description = "(un)maximize horizontally", group = "client" })
+    { description = "(un)maximize horizontally", group = "client" }),
+  awful.key({ modkey }, "Tab", function(c)
+    cyclefocus.cycle({modifier="Super_L"})
+  end),
 )
 
 -- Bind all key numbers to tags.

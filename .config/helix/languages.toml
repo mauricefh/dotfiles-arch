@@ -129,6 +129,11 @@ auto-format = true
 language-servers = ["typescript-language-server", "vscode-eslint-language-server", "emmet-ls", "tailwindcss-ls"]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
+[[language]]
+name = "ejs"
+auto-format = true
+language-servers = ["vscode-html-language-server", "emmet-ls", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "ejs"] }
 
 [[language]]
 name = "markdown"
