@@ -71,4 +71,4 @@ export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:$HOME/.scripts:$HOME/.npm-global/bin:$DPRINT_INSTALL/bin:$DENO/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
 
 # Postgres local db password
-export DATABASE_PASSWORD="5\q\MG3$kH\Hi@"
+export DATABASE_PASSWORD="5\q\MG3\$kH\Hi@"

@@ -1,11 +1,13 @@
 # theme = "darkvoid"
-theme = "onedarker"
+theme = "catppuccin_latte"
+# catppuccin_latte for light mode
+# onedarker or darkvoid for dark mode
 
 [editor]
 line-number = "absolute"
 bufferline = "always"
-text-width = 100
-rulers = [100]
+text-width = 120
+rulers = [120]
 true-color = true
 cursorline = true
 end-of-line-diagnostics = "warning"
