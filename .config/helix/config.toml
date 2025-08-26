@@ -1,8 +1,5 @@
-# theme = "darkvoid"
-# theme = "catppuccin_latte"
-theme = "onedarker"
-# catppuccin_latte for light mode
-# onedarker or darkvoid for dark mode
+# theme = "catppuccin_latte" # light mode
+theme = "darkvoid" # dark mode
 
 [editor]
 line-number = "absolute"
@@ -14,7 +11,7 @@ cursorline = true
 end-of-line-diagnostics = "warning"
 continue-comments = false
 auto-format	= true
-rainbow-brackets = true
+# rainbow-brackets = true
 # clipboard-provider = "x-sel"
 
 [editor.soft-wrap]
