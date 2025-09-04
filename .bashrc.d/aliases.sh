@@ -8,6 +8,9 @@ alias dfu="dotfiles commit -am 'update' && dotfiles pull && dotfiles push"
 alias note="/usr/bin/git --git-dir=$HOME/.notes --work-tree=$HOME"
 alias nu="note commit -am 'update' && note pull && note push"
 
+# Task
+alias task="hx $HOME/task.md"
+
 # Directory navigation aliases
 alias home='cd ~'
 alias ..='cd ..'
