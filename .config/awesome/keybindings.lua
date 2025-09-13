@@ -109,7 +109,9 @@ globalkeys = gears.table.join(
   awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 5%-") end,
     { description = "Decrease brightness by 5%", group = "media" }),
   awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set +5%") end,
-    { description = "Increase brightness by 5%", group = "media" })
+    { description = "Increase brightness by 5%", group = "media" }),
+  awful.key({modkey}, ".", function() awful.spawn("emoji-picker") end,
+    { description = "Spawn emoji picker", group = "tools" })
 )
 
 -- Client-specific key bindings

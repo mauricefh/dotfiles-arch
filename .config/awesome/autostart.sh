@@ -15,8 +15,7 @@ run_once batsignal
 run_once picom
 run_once keepassxc
 run_once flameshot
-# run_once discord
-run_once xdman-beta
+run_once discord
 run_once udiskie
 run_once slack
 

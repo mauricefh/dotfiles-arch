@@ -34,9 +34,6 @@ awful.rules.rules = {
       instance = {
         "yazi", "lazygit"
       },
-      class = {
-        "Arandr"
-        },
       name = {
         "Event Tester",    -- xev.
       },
