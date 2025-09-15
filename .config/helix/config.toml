@@ -55,8 +55,8 @@ home = "no_op"
 end = "no_op"
 
 C-space = "code_action"
-C-e = "file_explorer" # Open the file explorer
-C-f = "file_picker" # Open the file picker
+C-e = "file_explorer_in_current_directory" # Open the file explorer
+C-f = "file_picker_in_current_directory" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
 C-j = "jumplist_picker" # Jump list picker
@@ -82,6 +82,9 @@ C-y = [
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',
 ]
+S-g = [
+  ':sh xdg-open "$(git remote get-url origin)"'
+]
 
 [keys.insert]
 up = "no_op"
@@ -94,8 +97,8 @@ home = "no_op"
 end = "no_op"
 
 C-space = "code_action"
-C-e = "file_explorer" # Open the file explorer
-C-f = "file_picker" # Open the file picker
+C-e = "file_explorer_in_current_directory" # Open the file explorer
+C-f = "file_picker_in_current_directory" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
 # C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"] # Open lazygit
