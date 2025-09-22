@@ -8,7 +8,8 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local home = os.getenv("HOME")
 local user = os.getenv("USER")
-local wallpaper_path = home .. "/.config/background/bg1.jpg"
+-- local wallpaper_path = home .. "/.config/background/bg1.jpg"
+local wallpaper_path = home .. "/.config/background/itachi.jpeg"
 -- local wallpaper_path = home .. ""
 
 gears.wallpaper.fit(wallpaper_path, s)
