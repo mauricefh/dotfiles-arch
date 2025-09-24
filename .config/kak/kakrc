@@ -1,244 +1,133 @@
-# Debug
-# set-option global lsp_debug true
-
-require-module x11
-set global windowing_modules x11
-
+# ========== Appearance ==========
 colorscheme kakoune-plain
 
-# Don't show startup changelog
-set-option global startup_info_version 99999999999
-set-option global autoreload true
-
-# Wrap at 80
-# add-highlighter global/ column 81 PrimarySelection
-# add-highlighter global/ wrap -word -indent -width 80
-
-add-highlighter global/ column 81 PrimarySelection
-add-highlighter global/ wrap -word -indent -width 80
-# Show mathing brackets
+# Line numbers + rulers
+add-highlighter global/ number-lines -hlcursor -min-digits 4
+add-highlighter global/ column 121 PrimarySelection
 add-highlighter global/ show-matching
 
-# Line numbers
-add-highlighter global/ number-lines -hlcursor -min-digits 4 -separator ' '
+# Word wrapping (80 chars)
+add-highlighter global/ wrap -word -indent -width 80
 
-# Setup ide variables to open new clients for commands
-def ide %{
-  rename-client main
-  set global jumpclient main
+# Optional: indent guides (requires plugin kakoune-indent-guides)
+# evaluate-commands %sh{
+#   plug "andreyorst/indent-guides.kak"
+# }
 
-  new rename-client tools
-  set global toolsclient tools
+# Cursorline equivalent (use regex highlight for current line)
+hook global WinSetOption filetype=.* %{
+  add-highlighter window/ regex '\A.*\z' 0:PrimaryCursor
 }
 
-# unselect on <esc>
-map global normal <esc> ";,"
+# Modeline (statusline)
+# set-option global modelinefmt '[%%val{client} @ %%val{session}] %val{bufname} %%opt{filetype} | L%%val{cursor_line}:C%%val{cursor_char_column} | %%val{mode}'
 
-# comment lines
-map global normal <c-v> ":comment-line<ret>"
+# ========== Keybindings ==========
+# jk → normal mode
+map global insert j ': try %{
+  exec -draft h
+  exec -draft i
+  exec -draft <esc>
+} catch %{ exec -draft j }<ret>'
 
-# Make opening new terminals easy
-set global termcmd 'zutty -e sh -c'
-map global normal <c-t> ': terminal /bin/bash<ret>'
+map global insert k ': try %{
+  exec -draft h
+  exec -draft i
+  exec -draft <esc>
+} catch %{ exec -draft k }<ret>'
 
-# Make opening new buffers easy
-map global normal <c-n> ':new<ret>'
+# Buffers
+map global normal <c-h> ': buffer-previous<ret>'
+map global normal <c-l> ': buffer-next<ret>'
+map global normal <c-x> ': delete-buffer<ret>'
 
-# Easier buffer management
-map global normal <c-b> ': b '
+# File picker (git-aware)
+map global normal <c-f> ': findgit '
+map global normal <c-e> ': terminal lf<ret>'
 
-# Close current buffer
-map global normal <c-x> ': db<ret>'
+# LSP actions
+map global normal <c-space> ': lsp-code-actions<ret>'
+map global insert <c-space> '<esc>: lsp-code-actions<ret>'
 
-def git-link-yank %{
-  nop %sh{
-    url="$(git remote get-url origin | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git//')/blob"
-    branch="/$(git status -b --porcelain=v2 | grep branch.oid | cut -d ' ' -f 3)"
-    top=$(git rev-parse --show-toplevel | sed 's/\//\\\//g')
-    path=$(echo -n "$kak_buffile" | sed "s/$top//")
-    line1="#L$(echo $kak_selection_desc | sed 's/\..*$//')"
-    line2="-L$(echo $kak_selection_desc | cut -d ',' -f 2 | sed 's/\..*$//')"
-    printf "%s%s%s%s" "$url" "$branch" "$path" "$line1" "$line2" | xsel -b
+# Git helpers
+map global normal <c-y> ': git-link yank<ret>'
+map global normal <space> ': enter-user-mode git<ret>'
+
+# Git user-mode
+declare-user-mode git
+map global git g ': git status<ret>'
+map global git a ': git add -p<ret>'
+map global git c ': git commit<ret>'
+map global git d ': git diff<ret>'
+map global git s ': git status<ret>'
+map global git p ': git push<ret>'
+map global git l ': git pull<ret>'
+
+# ========== Language hooks ==========
+# Python
+hook -group lsp-filetype-py global WinSetOption filetype=python %{
+  set-option buffer formatcmd "black --quiet -"
+  set-option buffer lsp_servers %{
+    [pylsp]
+    command = "pylsp"
   }
 }
-map global normal <c-y> ': git-link-yank<ret>'
 
-# Add any new selection to the system clipboard
-map global normal y '\<a-|>xsel -b<ret>y'
-
-# Use ctrl-a to search
-set global grepcmd 'git grep -Hn'
-map global normal <c-a> ':grep '
-
-# Use git ls-files for quick jump to files
-declare-option str findgitcmd 'git ls-files'
-define-command findgit -menu -params 1 -shell-script-candidates %opt{findgitcmd} %{ edit %arg{1} }
-map global normal <c-f> ':findgit '
-
-# Use find for quick jump to files
-# declare-option str findcmd 'find . -type f | grep -vFf .gitignore'
-declare-option str findlocalcmd 'find . -type f | git check-ignore --stdin -v || cat'
-define-command findlocal -menu -params 1 -shell-script-candidates %opt{findlocalcmd} %{ edit %arg{1} }
-map global normal <c-s-f> ':findlocal '
-
-
-
-# Indentation - always 2 spaces
-hook global InsertChar \t %{ exec -draft -itersel h@ }
-set global tabstop 2
-set global indentwidth 2
-
-# Delete word in insert mode
-map global insert <c-w> <esc>bdi
-
-# Less keystrokes to use make, and navigate errors
-declare-user-mode error-mode
-
-# map global normal <c-e> ":enter-user-mode error-mode<ret>"
-# map -docstring "make" global error-mode m ":make<ret>"
-# map -docstring "next error" global error-mode n ":make-next-error<ret>"
-# map -docstring "previous error" global error-mode p ":make-previous-error<ret>"
-
-# Run emmet cli to insert html into any file with ease
-map global normal <c-e> "| emmet ''<left>"
-
-# Stop scratch buffer from having anything in it
-hook global WinCreate \*scratch\* %{
-  execute-keys <s-%>d
-}
-
-# Autocomplet with tab
-hook global InsertCompletionShow .* %{
-    map window insert <tab> <c-n>
-    map window insert <s-tab> <c-p>
-}
-
-hook global InsertCompletionHide .* %{
-    unmap window insert <tab> <c-n>
-    unmap window insert <s-tab> <c-p>
-}
-
-# Exit insert mode with 'jk'
-hook global InsertChar k %{ try %{
-  exec -draft hH <a-k>jk<ret> d
-  exec <esc>
-}}
-
-# Map global keybind
-map global normal <a-s-f> ': format<ret>' -docstring 'prettier'
-
-# User keybind with <space>
-map global user a ': git add .<ret>' -docstring 'git add'
-map global user c ": git commit<ret>" -docstring 'git commit'
-map global user p ': git pull<ret>' -docstring 'git pull'
-map global user P ': git pull<ret>' -docstring 'git push'
-map global user l ': git log<ret>' -docstring 'git log'
-map global user s ': git status<ret>' -docstring 'git status'
-map global user d ': git diff<ret>' -docstring 'git diff'
-map global user b ': git blame<ret>' -docstring 'git blame'
-
-
-###########################
-# LSP Setting
-###########################
-
-# Init
-eval %sh{kak-lsp}
-lsp-enable
-
-# Keybind
-map global normal <c-l> ':enter-user-mode lsp<ret>' -docstring 'LSP mode'
-map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
-map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
-map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
-map global object f '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
-map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
-map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
-map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
-
-# Formater & Linter
-
-# JavaScript, TypeScript
-hook global WinSetOption filetype=(javascript|typescript|css|scss|json|markdown|yaml|html) %{
+# JavaScript / TypeScript
+hook -group lsp-filetype-js global WinSetOption filetype=(javascript|typescript) %{
   set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
+  set-option buffer lsp_servers %{
+    [ts]
+    command = "typescript-language-server"
+    args = ["--stdio"]
+  }
+}
+
+# HTML / CSS / SCSS / JSON / Markdown / Vue / JSX / TSX / EJS
+hook -group lsp-filetype-web global WinSetOption filetype=(html|css|scss|json|markdown|vue|jsx|tsx|ejs) %{
+  set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
+  set-option buffer lsp_servers %{
+    [vscode-html]
+    command = "vscode-html-language-server"
+    args = ["--stdio"]
+  }
 }
 
 # Rust
-hook global WinSetOption filetype=(rust) %{
-    set-option buffer formatcmd "rustfmt"
+hook -group lsp-filetype-rs global WinSetOption filetype=rust %{
+  set-option buffer lsp_servers %{
+    [rust-analyzer]
+    command = "rust-analyzer"
+  }
 }
 
-hook -group lsp-filetype-rust global BufSetOption filetype=rust %{
-    set-option buffer lsp_servers %{
-        [rust-analyzer]
-        root_globs = ["Cargo.toml"]
-        command = "sh"
-        args = [
-            "-c",
-            """
-                if path=$(rustup which rust-analyzer 2>/dev/null); then
-                    exec "$path"
-                else
-                    exec rust-analyzer
-                fi
-            """,
-        ]
-        [rust-analyzer.experimental]
-        commands.commands = ["rust-analyzer.runSingle"]
-        hoverActions = true
-        [rust-analyzer.settings.rust-analyzer]
-        # See https://rust-analyzer.github.io/manual.html#configuration
-        # cargo.features = []
-        check.command = "clippy"
-    }
+# Lua
+hook -group lsp-filetype-lua global WinSetOption filetype=lua %{
+  set-option buffer lsp_servers %{
+    [lua-language-server]
+    command = "lua-language-server"
+  }
 }
 
-#GraphQL
-hook -group lsp-filetype-graphql global BufSetOption filetype=graphql %{
-    set-option buffer lsp_servers %opt{lsp_server_biome}
-
+# GraphQL
+hook -group lsp-filetype-graphql global WinSetOption filetype=graphql %{
+  set-option buffer formatcmd "biome format --stdin-file-path=%val{buffile}"
 }
 
-#Lua
-hook -group lsp-filetype-lua global BufSetOption filetype=lua %{
-    set-option buffer lsp_servers %{
-        [lua-language-server]
-        root_globs = [".git", ".hg"]
-        settings_section = "Lua"
-        [lua-language-server.settings.Lua]
-        # See https://github.com/sumneko/vscode-lua/blob/master/setting/schema.json
-        # diagnostics.enable = true
-    }
+# LaTeX (texlab + ltex)
+hook -group lsp-filetype-tex global WinSetOption filetype=latex %{
+  set-option buffer lsp_servers %{
+    [texlab]
+    command = "texlab"
+  }
+  set-option buffer lsp_servers %{
+    [ltex-ls]
+    command = "ltex-ls"
+  }
 }
 
-# Python
-hook global WinSetOption filetype=(python) %{
-    set-option buffer formatcmd "black --quiet --fast --line-length 120 %val{buffile}"
-}
-
-hook -group lsp-filetype-python global BufSetOption filetype=python %{
-    set-option buffer lsp_servers %{
-        [pylsp]
-        root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
-        settings_section = "_"
-        [pylsp.settings._]
-        # See https://github.com/python-lsp/python-lsp-server#configuration
-        pylsp.configurationSources = ["flake8"]
-        pylsp.plugins.jedi_completion.include_params = true
-        pylsp.plugins.rope_autoimport.enabled = true
-    }
-    # set-option buffer lsp_servers %{
-    #     [pyright-langserver]
-    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", "pyrightconfig.json", ".git", ".hg"]
-    #     args = ["--stdio"]
-    # }
-    # set-option -add buffer lsp_servers %{
-    #     [ruff]
-    #     args = ["server", "--quiet"]
-    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
-    #     settings_section = "_"
-    #     [ruff.settings._.globalSettings]
-    #     organizeImports = true
-    #     fixAll = true
-    # }
+# ========== Final Setup ==========
+# Start kak-lsp automatically
+evaluate-commands %sh{
+  kak-lsp --kakoune -s $kak_session &
 }

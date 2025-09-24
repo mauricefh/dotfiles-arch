@@ -69,7 +69,7 @@ C-t = ":sh wezterm start --always-new-process" # Open a new terminal in the curr
 S-y = ":yank-diagnostic"
 C-g = [
   ":write-all",
-  ":insert-output lazygit >/dev/tty",
+  ":insert-output gitui >/dev/tty",
   ":redraw",
   ":set mouse false",
   ":set mouse true",
