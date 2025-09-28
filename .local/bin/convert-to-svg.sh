@@ -48,10 +48,20 @@ echo "$files" | parallel -j "$cores" '
   if [ -f "$output_file" ]; then
     echo "Skipping $file, $output_file already exists." | tee -a '"$log_file"'
   else
-    # Try VTracer for true vector conversion with color support
+    # Try VTracer for true vector conversion with optimized settings
     if command -v vtracer >/dev/null 2>&1; then
-      if vtracer --input "$file" --output "$output_file" 2>/dev/null; then
-        echo "Vectorized $file → $output_file (vtracer)" | tee -a '"$log_file"'
+      if vtracer --input "$file" --output "$output_file" \
+        --colormode color \
+        --hierarchical stacked \
+        --mode spline \
+        --filter_speckle 4 \
+        --color_precision 6 \
+        --corner_threshold 60 \
+        --segment_length 10 \
+        --gradient_step 5 \
+        --splice_threshold 45 \
+        --path_precision 8 2>/dev/null; then
+        echo "Vectorized $file → $output_file (vtracer optimized)" | tee -a '"$log_file"'
       else
         echo "VTracer failed, falling back to inkscape for $file" | tee -a '"$log_file"'
         if inkscape "$file" --export-type=svg --export-area-drawing --export-filename="$output_file" 2>/dev/null; then
