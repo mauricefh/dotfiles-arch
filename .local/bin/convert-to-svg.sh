@@ -48,26 +48,43 @@ echo "$files" | parallel -j "$cores" '
   if [ -f "$output_file" ]; then
     echo "Skipping $file, $output_file already exists." | tee -a '"$log_file"'
   else
-    # Try VTracer for true vector conversion with optimized settings
+    # Try VTracer for true vector conversion with maximum quality settings
     if command -v vtracer >/dev/null 2>&1; then
+      # Ultra high-quality settings for pixel-perfect results
       if vtracer --input "$file" --output "$output_file" \
         --colormode color \
         --hierarchical stacked \
         --mode spline \
-        --filter_speckle 4 \
-        --color_precision 6 \
-        --corner_threshold 60 \
-        --segment_length 10 \
-        --gradient_step 5 \
-        --splice_threshold 45 \
-        --path_precision 8 2>/dev/null; then
-        echo "Vectorized $file → $output_file (vtracer optimized)" | tee -a '"$log_file"'
+        --filter_speckle 1 \
+        --color_precision 8 \
+        --corner_threshold 15 \
+        --segment_length 3 \
+        --gradient_step 1 \
+        --splice_threshold 15 \
+        --path_precision 12 2>/dev/null; then
+        echo "Vectorized $file → $output_file (vtracer pixel-perfect)" | tee -a '"$log_file"'
       else
-        echo "VTracer failed, falling back to inkscape for $file" | tee -a '"$log_file"'
-        if inkscape "$file" --export-type=svg --export-area-drawing --export-filename="$output_file" 2>/dev/null; then
-          echo "Converted $file → $output_file (inkscape fallback)" | tee -a '"$log_file"'
+        # If ultra-high quality fails, try high quality fallback
+        echo "Ultra-quality failed, trying high-quality settings for $file" | tee -a '"$log_file"'
+        if vtracer --input "$file" --output "$output_file" \
+          --colormode color \
+          --hierarchical stacked \
+          --mode spline \
+          --filter_speckle 2 \
+          --color_precision 7 \
+          --corner_threshold 30 \
+          --segment_length 5 \
+          --gradient_step 2 \
+          --splice_threshold 25 \
+          --path_precision 10 2>/dev/null; then
+          echo "Vectorized $file → $output_file (vtracer high-quality)" | tee -a '"$log_file"'
         else
-          echo "Failed to convert $file" | tee -a '"$log_file"'
+          echo "VTracer failed, falling back to inkscape for $file" | tee -a '"$log_file"'
+          if inkscape "$file" --export-type=svg --export-area-drawing --export-filename="$output_file" 2>/dev/null; then
+            echo "Converted $file → $output_file (inkscape fallback)" | tee -a '"$log_file"'
+          else
+            echo "Failed to convert $file" | tee -a '"$log_file"'
+          fi
         fi
       fi
     else
