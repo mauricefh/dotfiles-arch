@@ -70,8 +70,10 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 # Carapace
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 source <(carapace _carapace)
+
+# Jujustu (jj)
+source <(COMPLETE=bash jj)

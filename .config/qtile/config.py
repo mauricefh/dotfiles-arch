@@ -9,7 +9,7 @@ from libqtile.utils import guess_terminal
 mod = "mod4"
 terminal = "wezterm"
 browser = "brave-beta"
-wallpaper = "/home/mauricefh/.config/background/itachi.jpeg"
+wallpaper = "/home/mauricefh/.config/background/bg3.JPG"
 rofi_launcher_path = "/home/mauricefh/.config/rofi/scripts/launcher_t4"
 
 

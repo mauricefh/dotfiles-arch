@@ -22,6 +22,7 @@ run_once rquickshare
 run_once kdeconnect-indicator
 run_once clipcatd
 run_once lxsession-xdg-autostart
+run_once dunst
 
 # Disable sleep and screen saver
 xset s off
