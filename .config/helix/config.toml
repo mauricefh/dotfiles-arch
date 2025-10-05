@@ -48,6 +48,9 @@ cursor-line = "warning"
 [editor.file-picker]
 hidden = false
 
+[editor.gutters]
+layout = ["diff", "diagnostics", "line-numbers", "spacer"]
+
 ##### KEYBINDS #####
 [keys.insert.j]
 k = "normal_mode" # Maps `jk` to exit insert mode
@@ -63,6 +66,7 @@ home = "no_op"
 end = "no_op"
 
 C-space = "code_action"
+A-space = ":lsp-workspace-command"
 C-e = "file_explorer_in_current_directory" # Open the file explorer
 C-f = "file_picker_in_current_directory" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker

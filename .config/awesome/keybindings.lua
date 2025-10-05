@@ -102,8 +102,10 @@ globalkeys = gears.table.join(
     { description = "lua execute prompt", group = "awesome" }),
 
   -- Customs
+  awful.key({ modkey }, "v", function() awful.spawn("clipcat-menu") end,
+    { description = "open clipboard selector", group = "tools" }),
   awful.key({ modkey, "Shift" }, "b", function() awful.spawn(browser) end,
-    { description = "open browser", group = "launcher" }), -- Changed description for clarity
+    { description = "open browser", group = "launcher" }),
   awful.key({}, "XF86AudioMicMute", function() awful.spawn("amixer set Capture toggle") end,
     { description = "Mute microphone", group = "media" }),
   awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 5%-") end,

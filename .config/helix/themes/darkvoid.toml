@@ -1,12 +1,7 @@
-
-# Dark Void theme for Helix
-# Author: zoedsoupe <zoey.spessanha@zeetech.io>
-# License: MIT
-# Based on the Dark Void Neovim theme
-
 # UI
 "ui.background" = { bg = "bg" }
 "ui.background.separator" = { fg = "border" }
+"ui.bufferline.active" = {fg = "cursor"}
 "ui.cursor" = { fg = "cursor", modifiers = ["reversed"] }
 "ui.cursor.insert" = { fg = "cursor", modifiers = ["reversed"] }
 "ui.cursor.select" = { fg = "cursor", modifiers = ["reversed"] }
@@ -137,8 +132,8 @@ constant = "#b2d8d8"
 added = "#baffc9"
 changed = "#ffffba"
 removed = "#ffb3ba"
-error = "#dea6a0"
-warning = "#d6efd8"
+error = "#FF0000"
+warning = "#FFFF00"
 hint = "#bedc74"
 info = "#7fa1c3"
 pmenu_bg = "#1c1c1c"
@@ -149,3 +144,4 @@ eob = "#3c3c3c"
 border = "#585858"
 title = "#bdfe58"
 bufferline_selection = "#1bfd9c"
+

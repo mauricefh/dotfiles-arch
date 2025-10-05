@@ -20,6 +20,7 @@ run_once udiskie
 run_once slack
 run_once rquickshare
 run_once kdeconnect-indicator
+run_once clipcatd
 
 # Disable sleep and screen saver
 xset s off

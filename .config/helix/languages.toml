@@ -1,25 +1,25 @@
 # languauges.toml
 
-[[language]]
-name = "python"
-language-id = "python"
-roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
-language-servers = ["ruff", "basedpyright", "jedi"]
-formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
-file-types = ["py", "ipynb"]
-comment-token = "#"
-shebangs = ["python"]
-auto-format = true
+# [[language]]
+# name = "python"
+# language-id = "python"
+# roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
+# language-servers = ["ruff", "basedpyright", "jedi"]
+# formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
+# file-types = ["py", "ipynb"]
+# comment-token = "#"
+# shebangs = ["python"]
+# auto-format = true
 
-[language-server.basedpyright]
-command = "basedpyright-langserver"
-args = ["--stdio"]
+# [language-server.basedpyright]
+# command = "basedpyright-langserver"
+# args = ["--stdio"]
 
-[language-server.basedpyright.config.basedpyright.analysis]
-autoSearchPaths = true
-typeCheckingMode = "basic"
-diagnosticMode = "openFilesOnly"
-autoImportCompletions = true
+# [language-server.basedpyright.config.basedpyright.analysis]
+# autoSearchPaths = true
+# typeCheckingMode = "basic"
+# diagnosticMode = "openFilesOnly"
+# autoImportCompletions = true
 
 [language-server.ruff]
 command = "ruff"
@@ -157,9 +157,6 @@ args = ["-pdf", "-interaction=nonstopmode", "-synctex=1", "%f"]
 onSave = true
 forwardSearchAfter = true
 
-# If using Tectonic, use these args instead:
-# args = ["-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates"]
-
 # Auxiliary directory for build files
 [language-server.texlab.config.texlab.auxDirectory]
 path = "build"
@@ -192,6 +189,20 @@ comment-token = "%"
 language-servers = ["texlab", "ltex"]  # ltex is optional
 indent = { tab-width = 2, unit = "  " }
 auto-format = true
-
-# Optional: formatter using latexindent
 formatter = { command = "latexindent", args = ["-l", "-w"] }
+
+[language-server.pylsp.config.pylsp]
+plugins.black.enabled = true
+plugins.pylint.enabled = true
+plugins.pyflakes.enabled = false
+plugins.pyls_mypy.enabled = true
+plugins.pyls_mypy.live_mode = false
+plugins.isort.enabled = true
+plugins.rope_autoimport.enabled = true
+
+[[language]]
+name = "python"
+scope = "source.python"
+file-types = ["py"]
+language-servers = [ "pylsp" ]
+auto-format = true
