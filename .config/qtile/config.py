@@ -1,15 +1,16 @@
 import os
 import subprocess
-
 import libqtile.resources
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = "wezterm"
 browser = "brave-beta"
 wallpaper = "/home/mauricefh/.config/background/itachi.jpeg"
+rofi_launcher_path = "/home/mauricefh/.config/rofi/scripts/launcher_t4"
 
 
 keys = [
@@ -57,10 +58,11 @@ keys = [
     Key([mod], "space", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     # Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawn(rofi_launcher_path), desc="Spawn rofi"),
     # Customs keys
     Key([mod], "v", lazy.spawn("clipcat-menu"), desc="Spawn clipcat-menu"),
     Key([mod, "shift"], "b", lazy.spawn(browser), desc="Spawn brave-beta"),
+    Key([mod], "s", lazy.spawn("flameshot gui"), desc="Screenshot"),
     Key([mod, "shift"], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle"), desc="Mute microphone"),
     Key([mod, "shift"], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%"), desc="Increase brightness by 5%"),
     Key([mod, "shift"], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-"), desc="Decrease brightness by 5%"),
@@ -131,7 +133,6 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-logo = os.path.join(os.path.dirname(libqtile.resources.__file__), "logo.png")
 screens = [
     Screen(
         bottom=bar.Bar(
@@ -158,7 +159,7 @@ screens = [
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         background="#000000",
-        wallpaper=logo,
+        wallpaper=wallpaper,
         wallpaper_mode="center",
     ),
 ]
@@ -196,27 +197,7 @@ reconfigure_screens = True
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
 auto_minimize = True
-
-# When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
-
-# xcursor theme (string or None) and size (integer) for Wayland backend
-wl_xcursor_theme = None
-wl_xcursor_size = 24
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
 
 # Autostart script
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.Popen(['picom'])
-    subprocess.Popen(['nm-applet'])
-    subprocess.Popen(['volumeicon'])
+subprocess.Popen(["/home/mauricefh/.config/qtile/autostart.sh"])
