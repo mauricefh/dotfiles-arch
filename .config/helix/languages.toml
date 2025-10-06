@@ -1,72 +1,4 @@
 # languauges.toml
-
-# [[language]]
-# name = "python"
-# language-id = "python"
-# roots = ["pyproject.toml", "poetry.lock", ".git", ".venv/"]
-# language-servers = ["ruff", "basedpyright", "jedi"]
-# formatter = { command = 'black', args = ["--line-length", "120", "--quiet", "-"] }
-# file-types = ["py", "ipynb"]
-# comment-token = "#"
-# shebangs = ["python"]
-# auto-format = true
-
-# [language-server.basedpyright]
-# command = "basedpyright-langserver"
-# args = ["--stdio"]
-
-# [language-server.basedpyright.config.basedpyright.analysis]
-# autoSearchPaths = true
-# typeCheckingMode = "basic"
-# diagnosticMode = "openFilesOnly"
-# autoImportCompletions = true
-
-[language-server.ruff]
-command = "ruff"
-args = ["server", "--preview"]
-environment = { "RUFF_TRACE" = "messages" }
-
-[language-server.ruff.config.settings]
-lineLength = 120
-logLevel = "debug"
-
-[language-server.ruff.config.settings.lint]
-# Rules to enable:
-# E: PEP 8 style violations (e.g., line length, indentation)
-# F: Pyflakes rules (e.g., unused imports, undefined variables)
-# B: Bandit rules (security-related issues)
-# I: Import-related rules (e.g., order, grouping)
-# RUF: Ruff-specific rules
-# N: Naming conventions
-# LOG: Logging best practices
-# ERA: Error handling and raising exceptions
-# W: General warnings
-# D: Docstring-related rules (e.g., formatting, presence)
-# UP: Modernization and updates (e.g., Python version-specific suggestions)
-# ANN: Type annotation checks
-# ASYNC: Async-related rules
-# S: String-related rules (e.g., f-strings, formatting)
-# RET: Return statement checks
-# TCH: Try-catch block checks
-# ARG: Function argument-related rules
-# PTH: Path-related rules
-# DOC: Documentation rules (beyond basic docstrings)
-select = ["E", "F", "B", "I", "RUF", "N", "LOG", "ERA", "D", "UP", "ANN", "ASYNC", "S", "RET", "TCH", "ARG", "PTH"]
-
-# Rules to ignore:
-# F401: Ignore warnings for unused imports
-# F811: Ignore warnings for redefined variables (e.g., in function overrides)
-# F841: Ignore warnings for unused local variables
-# ARG001: Ignore rules for unused function arguments
-# ARG002: Ignore rules for unused method arguments
-# ARG003: Ignore rules for unused class arguments
-# D100: Ignore warnings for missing docstring in public modules
-# D101: Ignore warnings for missing docstring in public class
-# D103: Ignore warnings for missing docstring in public functions
-# ERA001: Ignore warnings for commented out code
-ignore = ["F401", "F811", "F841", "ARG001", "ARG002", "ARG003", "D100", "D101", "D102", "D103", "ERA001"]
-preview = true
-
 [language-server.emmet-ls]
 command = "emmet-ls"
 args = ["--stdio"]
@@ -191,18 +123,20 @@ indent = { tab-width = 2, unit = "  " }
 auto-format = true
 formatter = { command = "latexindent", args = ["-l", "-w"] }
 
-[language-server.pylsp.config.pylsp]
-plugins.black.enabled = true
-plugins.pylint.enabled = true
-plugins.pyflakes.enabled = false
-plugins.pyls_mypy.enabled = true
-plugins.pyls_mypy.live_mode = false
-plugins.isort.enabled = true
-plugins.rope_autoimport.enabled = true
-
 [[language]]
 name = "python"
 scope = "source.python"
-file-types = ["py"]
-language-servers = [ "pylsp" ]
+injection-regex = "python"
+file-types = ["py", "pyi", "pyw"]
+comment-token = "#"
+language-servers = [ "pyright", "ruff-lsp" ]
+indent = { tab-width = 4, unit = " " }
+formatter = { command = "black", args = ["-"] }
 auto-format = true
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"

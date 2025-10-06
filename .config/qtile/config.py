@@ -1,10 +1,9 @@
-import os
 import subprocess
-import libqtile.resources
-from libqtile import bar, layout, qtile, widget
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
+
+# pylint: disable=invalid-name
 
 mod = "mod4"
 terminal = "wezterm"
@@ -25,7 +24,12 @@ keys = [
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key(
+        [mod, "shift"],
+        "l",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
@@ -55,7 +59,12 @@ keys = [
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
     ),
-    Key([mod], "space", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key(
+        [mod],
+        "space",
+        lazy.window.toggle_floating(),
+        desc="Toggle floating on the focused window",
+    ),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     # Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawn(rofi_launcher_path), desc="Spawn rofi"),
@@ -63,9 +72,42 @@ keys = [
     Key([mod], "v", lazy.spawn("clipcat-menu"), desc="Spawn clipcat-menu"),
     Key([mod, "shift"], "b", lazy.spawn(browser), desc="Spawn brave-beta"),
     Key([mod], "s", lazy.spawn("flameshot gui"), desc="Screenshot"),
-    Key([mod, "shift"], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle"), desc="Mute microphone"),
-    Key([mod, "shift"], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%"), desc="Increase brightness by 5%"),
-    Key([mod, "shift"], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-"), desc="Decrease brightness by 5%"),
+    Key(
+        [mod, "shift"],
+        "XF86MonBrightnessUp",
+        lazy.spawn("brightnessctl set +5%"),
+        desc="Increase brightness by 5%",
+    ),
+    Key(
+        [mod, "shift"],
+        "XF86MonBrightnessDown",
+        lazy.spawn("brightnessctl set 5%-"),
+        desc="Decrease brightness by 5%",
+    ),
+    Key(
+        [],
+        "XF86AudioMute",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+        desc="Toggle audio mute",
+    ),
+    Key(
+        [],
+        "XF86AudioMicMute",
+        lazy.spawn("pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
+        desc="Toggle microphone mute",
+    ),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+        desc="Increase volume",
+    ),
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        desc="Decrease volume",
+    ),
     # Key([mod], ".", lazy.spawn("emoji-picker"), desc="Spawn emoji picker"),
 ]
 
@@ -126,11 +168,7 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-widget_defaults = dict(
-    font="IosevkaFixed-Regular",
-    fontsize=14,
-    padding=3,
-)
+widget_defaults = {"font": "IosevkaFixed-Regular", "fontsize": 14, "padding": 3}
 extension_defaults = widget_defaults.copy()
 
 screens = [
@@ -166,7 +204,12 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
@@ -200,4 +243,5 @@ auto_minimize = True
 wmname = "LG3D"
 
 # Autostart script
-subprocess.Popen(["/home/mauricefh/.config/qtile/autostart.sh"])
+with subprocess.Popen(["/home/mauricefh/.config/qtile/autostart.sh"]) as proc:
+    proc.wait()
