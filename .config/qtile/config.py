@@ -73,13 +73,13 @@ keys = [
     Key([mod, "shift"], "b", lazy.spawn(browser), desc="Spawn brave-beta"),
     Key([mod], "s", lazy.spawn("flameshot gui"), desc="Screenshot"),
     Key(
-        [mod, "shift"],
+        [],
         "XF86MonBrightnessUp",
         lazy.spawn("brightnessctl set +5%"),
         desc="Increase brightness by 5%",
     ),
     Key(
-        [mod, "shift"],
+        [],
         "XF86MonBrightnessDown",
         lazy.spawn("brightnessctl set 5%-"),
         desc="Decrease brightness by 5%",
