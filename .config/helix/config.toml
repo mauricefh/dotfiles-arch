@@ -64,10 +64,10 @@ pageup = "no_op"
 pagedown = "no_op"
 home = "no_op"
 end = "no_op"
+# C-e = "no_op"
 
 C-space = "code_action"
 A-space = ":lsp-workspace-command"
-C-e = "file_explorer_in_current_directory" # Open the file explorer
 C-f = "file_picker_in_current_directory" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
@@ -85,7 +85,7 @@ C-g = [
   ":set mouse true",
   ":reload-all"
 ]
-C-y = [
+C-e = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file',
   ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
@@ -108,7 +108,6 @@ home = "no_op"
 end = "no_op"
 
 C-space = "code_action"
-C-e = "file_explorer_in_current_directory" # Open the file explorer
 C-f = "file_picker_in_current_directory" # Open the file picker
 C-b = "buffer_picker" # Open buffer picker
 C-v = "toggle_comments" # Toggle comment
@@ -116,4 +115,3 @@ C-v = "toggle_comments" # Toggle comment
 C-h = ":bp" # Goto previous buffer
 C-l = ":bn" # Goto next buffer
 C-x = ":bc" # Close current buffer
-
